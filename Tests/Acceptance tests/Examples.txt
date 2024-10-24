@@ -1,0 +1,25 @@
+Feature: CV Generation
+
+  Scenario: User logs in and generates a CV
+    Given I am on the login page
+    When I enter valid credentials
+    And I click on the login button
+    Then I should see my dashboard
+    When I fill out my CV information
+    And I click on the generate button
+    Then I should receive a downloadable CV
+
+
+
+Feature: Login
+
+  Scenario: User opens the site, and presses log in, and gets acces to their dashboard
+    Given I am on the landing page
+    When i press on the login page
+    Then I am on the login page
+    When I enter valid credentials
+    And I click on the login button
+    Then I should see my dashboard
+
+
+
