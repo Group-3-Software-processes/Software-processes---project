@@ -6,6 +6,9 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+    "testRegex": "Tests/Unit tests/.*\\.test.js$"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Group-3-Software-processes/Software-processes---project.git"
