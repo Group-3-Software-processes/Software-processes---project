@@ -1,0 +1,19 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Frontend/index.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Group-3-Software-processes/Software-processes---project.git"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Group-3-Software-processes/Software-processes---project/issues"
+  },
+  "homepage": "https://github.com/Group-3-Software-processes/Software-processes---project#readme"
+}
