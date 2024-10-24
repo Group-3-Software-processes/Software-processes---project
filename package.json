@@ -1,0 +1,30 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Frontend/index.html",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "project": "file:"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0",
+    "jsdom": "^25.0.1"
+  },
+  "type": "module",
+  "jest": {
+    "testRegex": "Tests/Unit_tests/.*\\.test.js$"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Group-3-Software-processes/Software-processes---project.git"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Group-3-Software-processes/Software-processes---project/issues"
+  },
+  "homepage": "https://github.com/Group-3-Software-processes/Software-processes---project#readme"
+}
