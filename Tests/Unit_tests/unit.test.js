@@ -1,14 +1,14 @@
-require '@testing-library/jest-dom/extend-expect';
-const { JSDOM } require('jsdom');
-const fs require('fs');
-const path require('path');
+require('@testing-library/jest-dom');
+const { JSDOM } = require('jsdom'); // Correct usage
+const fs = require('fs');
+const path = require('path');
 
 describe('CV Generator Website', () => {
     let dom;
 
     beforeAll(() => {
         // Load the HTML file
-        const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+        const html = fs.readFileSync(path.resolve(__dirname, '../../Frontend/index.html'), 'utf8');
         dom = new JSDOM(html);
     });
 
