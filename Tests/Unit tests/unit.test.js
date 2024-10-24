@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom/extend-expect';
-import { JSDOM } from 'jsdom';
-import fs from 'fs';
-import path from 'path';
+require '@testing-library/jest-dom/extend-expect';
+const { JSDOM } require('jsdom');
+const fs require('fs');
+const path require('path');
 
 describe('CV Generator Website', () => {
     let dom;
