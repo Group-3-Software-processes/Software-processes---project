@@ -8,10 +8,36 @@
 </head>
 <body>
     <h1>CV Generator</h1>
+    
+    <!-- Single Form for All Sections -->
     <form id="cv-form">
-        <input type="text" name="name" placeholder="Your Name" required />
+        <fieldset>
+            <legend>Personal Information</legend>
+            <input type="text" name="name" placeholder="Your Name" required />
+        </fieldset>
+
+        <fieldset>
+            <legend>Education</legend>
+            <input type="text" name="education" placeholder="Education" required />
+        </fieldset>
+
+        <fieldset>
+            <legend>Experience</legend>
+            <!-- Using textareas for potentially longer, multiline descriptions -->
+            <textarea name="experience1" placeholder="Experience 1" rows="3" required></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Skills</legend>
+            <!-- Using textareas to allow multiple skills per field if desired -->
+            <input name="skill1" placeholder="Skill" rows="2" required />
+
+            <button type="button" onclick="addSkillField()">Add More Skills</button>
+        </fieldset>
+
         <button type="submit">Generate CV</button>
     </form>
+
     <script src="script.js"></script>
 </body>
 </html>
