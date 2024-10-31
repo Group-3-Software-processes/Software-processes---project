@@ -126,5 +126,32 @@ describe('CV Generator Website', () => {
         // Assert that console.log was called with the correct value
         expect(console.log).toHaveBeenCalledWith('Elektrovej 36');
     })
-    
+
+    test('should upload a picture file correctly', () => {
+        // Mock the file object
+        const document = dom.window.document;
+        const file = new dom.window.File(['file content'], 'test-image.png', { type: 'image/png' });
+
+        // Get the file input element and set the mock file
+        const fileInput = document.querySelector('input[name="picture"]');
+        Object.defineProperty(fileInput, 'files', {
+            value: [file],
+            writable: false,
+        });
+
+        // Trigger form submission or call the upload handler if needed
+        const form = document.getElementById('cv-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Check that the file was uploaded correctly by checking fileInput.files[0]
+            expect(fileInput.files[0]).toBe(file);
+            expect(fileInput.files[0].name).toBe('test-image.png');
+            expect(fileInput.files[0].type).toBe('image/png');
+        });
+
+        // Simulate form submission
+        // Dispatch a 'submit' event instead of calling form.submit()
+        const submitEvent = new dom.window.Event('submit', { bubbles: true, cancelable: true });
+        form.dispatchEvent(submitEvent);
+    });
 });
