@@ -9,17 +9,33 @@
 <body>
     <h1>CV Generator</h1>
     
-
+    <!-- Single Form for All Sections -->
     <form id="cv-form">
-        <ul>
-            <li><input type="text" name="name" placeholder="Your Name" required /></li>
-            <li><input type="email" name="email" placeholder="Your email" required /></li>
-            <li><input type="number" name="phone" placeholder="Your phone" required /></li>
-            <li><input type="file" name="picture" placeholder="Input your picture" required accept=".png, .jpg, .jpeg" /></li>
-            <li><input type="text" name="address" placeholder="Your address" required /></li>
-        </ul>
-   
-        <button name="submitbutton" type="submit">Generate CV</button>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <input type="text" name="name" placeholder="Your Name" required />
+        </fieldset>
+
+        <fieldset>
+            <legend>Education</legend>
+            <input type="text" name="education" placeholder="Education" required />
+        </fieldset>
+
+        <fieldset>
+            <legend>Experience</legend>
+            <!-- Using textareas for potentially longer, multiline descriptions -->
+            <textarea name="experience1" placeholder="Experience 1" rows="3" required></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Skills</legend>
+            <!-- Using textareas to allow multiple skills per field if desired -->
+            <input name="skill1" placeholder="Skill" rows="2" required />
+
+            <button type="button" onclick="addSkillField()">Add More Skills</button>
+        </fieldset>
+
+        <button type="submit">Generate CV</button>
     </form>
 
     <script src="script.js"></script>
