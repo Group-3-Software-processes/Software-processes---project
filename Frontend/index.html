@@ -8,10 +8,20 @@
 </head>
 <body>
     <h1>CV Generator</h1>
+    
+
     <form id="cv-form">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <button type="submit">Generate CV</button>
+        <ul>
+            <li><input type="text" name="name" placeholder="Your Name" required /></li>
+            <li><input type="email" name="email" placeholder="Your email" required /></li>
+            <li><input type="number" name="phone" placeholder="Your phone" required /></li>
+            <li><input type="file" name="picture" placeholder="Input your picture" required accept=".png, .jpg, .jpeg" /></li>
+            <li><input type="text" name="address" placeholder="Your address" required /></li>
+        </ul>
+   
+        <button name="submitbutton" type="submit">Generate CV</button>
     </form>
+
     <script src="script.js"></script>
 </body>
 </html>
