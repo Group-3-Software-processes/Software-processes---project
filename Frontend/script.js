@@ -10,11 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = form.querySelector('input[name="email"]').value;
         const phone = form.querySelector('input[name="phone"]').value;
         const address = form.querySelector('input[name="address"]').value;
+        
+        // Retrieve all education fields
+        const education = Array.from(form.querySelectorAll('input[name^="education"]')).map(input => input.value);
 
-        const experience = form.querySelector('input[name="experience"]').value; // Incorrect selector
-        const education = form.querySelector('input[name="education"]').value;
-        const skills = form.querySelector('input[name="skills"]').value;
+        // Retrieve all skills fields
+        const skills = Array.from(form.querySelectorAll('input[name^="skill"]')).map(input => input.value);
 
+        const experience = form.querySelector('textarea[name="experience"]').value;
         const linkedin = form.querySelector('input[name="linkedin"]').value;
         const github = form.querySelector('input[name="github"]').value;
         const occupation = form.querySelector('textarea[name="occupation1"]').value;
@@ -34,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`Occupation: ${occupation}`);
         console.log(`About Me: ${aboutMe}`);
         console.log(`Experience: ${experience}`);
-        console.log(`Education: ${education}`);
-        console.log(`Skills: ${skills}`);
+        console.log("Education:", education);
+        console.log("Skills:", skills);
 
         if (file) {
             console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);

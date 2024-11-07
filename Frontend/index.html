@@ -21,73 +21,70 @@
     <form id="cv-form">
         <fieldset>
             <legend>Name</legend>
-            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="text" name="name" placeholder="Your Name"  />
         </fieldset>
 
         <fieldset>
             <legend>Email</legend>
-            <input type="email" name="email" placeholder="Your email" required />
+            <input type="email" name="email" placeholder="Your email"  />
         </fieldset>
 
         <fieldset>
             <legend>Number</legend>
-            <input type="number" name="phone" placeholder="Your phone" required />
+            <input type="number" name="phone" placeholder="Your phone"  />
         </fieldset>
 
         <fieldset>
             <legend>Faceshot</legend>
-            <input type="file" name="picture" placeholder="Input your picture" required accept=".png, .jpg, .jpeg" />
+            <input type="file" name="picture" placeholder="Input your picture"  accept=".png, .jpg, .jpeg" />
         </fieldset>
 
         <fieldset>
             <legend>Address</legend>
-            <input type="text" name="address" placeholder="Your address" required />
+            <input type="text" name="address" placeholder="Your address"  />
         </fieldset>
 
         <fieldset>
             <legend>LinkedIn</legend>
-            <input type="url" name="linkedin" placeholder="Link to your LinkedIn Profile" required />
+            <input type="url" name="linkedin" placeholder="Link to your LinkedIn Profile"  />
         </fieldset>
 
         <fieldset>
             <legend>GitHub</legend>
-            <input type="url" name="github" placeholder="Link to your GitHub Profile" required />
+            <input type="url" name="github" placeholder="Link to your GitHub Profile"  />
         </fieldset>
 
-        <fieldset id="educationFieldset">
+        <fieldset>
             <legend>Education</legend>
             <div id="educationContainer">
-                <input name="education1" id="education1" placeholder="Education" required />
-            <button type="button" onclick="addField('education', 'educationContainer', 'education')">Add More Education</button>
-            <button type="button" onclick="removeField('education', 'educationContainer', 'education')">Remove Last Education</button>
-        </div>
+                <input name="education1" id="education1" placeholder="Education"  />
+                <button type="button" onclick="addField('education', 'educationContainer', 'education')">Add More Education</button>
+                <button type="button" onclick="removeField('education', 'educationContainer', 'education')">Remove Last Education</button>
+            </div>
         </fieldset>
 
         <fieldset>
             <legend>Occupation</legend>
-            <!-- Using textarea for potentially longer, multiline descriptions -->
-            <textarea name="occupation1" placeholder="Occupation" rows="3" required></textarea>
+            <textarea name="occupation1" placeholder="Occupation" rows="3" ></textarea>
         </fieldset>
 
         <fieldset>
             <legend>Experience</legend>
-            <!-- Using textareas for potentially longer, multiline descriptions -->
-            <input name="experience" placeholder="Experience" rows="3" required></input>
+            <textarea name="experience" placeholder="Experience" rows="3"></textarea>
         </fieldset>
 
-        <fieldset id="skillsFieldset">
+        <fieldset>
             <legend>Skills</legend>
             <div id="skillsContainer">
-                <input name="skill1" id="skill1" placeholder="Skill" required />
-            <button type="button" onclick="addField('skills', 'skillsContainer', 'skill')">Add More Skills</button>
-            <button type="button" onclick="removeField('skills', 'skillsContainer', 'skill')">Remove Last Skill</button>
-        </div>
+                <input name="skill1" id="skill1" placeholder="Skill"  />
+                <button type="button" onclick="addField('skills', 'skillsContainer', 'skill')">Add More Skills</button>
+                <button type="button" onclick="removeField('skills', 'skillsContainer', 'skill')">Remove Last Skill</button>
+            </div>
         </fieldset>
         
         <fieldset>
             <legend>About Me</legend>
-            <!-- Using textareas for potentially longer, multiline descriptions -->
-            <textarea name="about" placeholder="Tell us about yourself" rows="4" required></textarea>
+            <textarea name="about" placeholder="Tell us about yourself" rows="4" ></textarea>
         </fieldset>
 
         <button type="submit">Generate CV</button>
