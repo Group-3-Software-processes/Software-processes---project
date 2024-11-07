@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const linkedin = form.querySelector('input[name="linkedin"]').value;
         const github = form.querySelector('input[name="github"]').value;
-        const occupation = form.querySelector('input[name="occupation"]').value;
+        const occupation = form.querySelector('textarea[name="occupation1"]').value;
         const aboutMe = form.querySelector('textarea[name="about"]').value;
         
         // Retrieve the file and display its details
@@ -26,11 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`Address: ${address}`);
         console.log(`LinkedIn: ${linkedin}`);
         console.log(`GitHub: ${github}`);
-        console.log(`Education: ${education}`);
-        console.log(`Occupation: ${occupation1}`);
-        console.log(`Experience: ${experience1}`);
-        console.log(`Skill: ${skill1}`);
-        console.log(`About Me: ${about}`);
+        console.log(`Occupation: ${occupation}`);
+        console.log(`About Me: ${aboutMe}`);
 
         if (file) {
             console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);
