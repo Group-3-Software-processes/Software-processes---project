@@ -44,31 +44,43 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Our skill field functionality below
-    let skillCount = 1; // Counter for unique skill field names
+    let skillCount = 1; // Start with one skill input field
     const maxSkills = 7; // Maximum number of skill fields
 
     window.addSkillField = function() {
-        // Check if the current number of skills has reached the maximum
+        // Check if maximum number of skills is reached
         if (skillCount >= maxSkills) {
-            console.warn("You can only add up to 7 skills.");
             alert("You can only add up to 7 skills.");
             return;
         }
 
-        skillCount++; // Increment the counter for unique naming
+        skillCount++; // Increment the counter
 
-        // Creating a new input element
+        // Create new skill input field
         const newInput = document.createElement('input');
-        newInput.name = `skill${skillCount}`; // Set a unique name
-        newInput.placeholder = "Skill"; // Set the placeholder
-        newInput.required = true; // Make it required if needed
+        newInput.name = `skill${skillCount}`;
+        newInput.id = `skill${skillCount}`;
+        newInput.placeholder = "Skill";
+        newInput.required = true;
 
         // Create a line break
         const lineBreak = document.createElement('br');
+        lineBreak.id = `br${skillCount}`;
 
-        // Append the new input and the line break to the container
-        document.getElementById('skillsContainer').appendChild(lineBreak);
-        document.getElementById('skillsContainer').appendChild(newInput);
+        // Append new input and line break to the skills container
+        const skillsContainer = document.getElementById('skillsContainer');
+        skillsContainer.appendChild(lineBreak);
+        skillsContainer.appendChild(newInput);
+    };
+
+    window.removeSkillField = function() {
+        if (skillCount > 1) {
+            // Remove the last skill input field and its line break
+            document.getElementById(`skill${skillCount}`).remove();
+            document.getElementById(`br${skillCount}`).remove();
+            skillCount--; // Decrement the counter
+        } else {
+            alert("You must have at least one skill field.");
+        }
     };
 });
