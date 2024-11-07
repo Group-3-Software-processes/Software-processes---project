@@ -46,9 +46,13 @@
             <input type="url" name="github" placeholder="Link to your GitHub Profile" required />
         </fieldset>
 
-        <fieldset>
+        <fieldset id="educationFieldset">
             <legend>Education</legend>
-            <input type="text" name="education" placeholder="Education" required />
+            <div id="educationContainer">
+                <input name="education1" id="education1" placeholder="Education" required />
+            <button type="button" onclick="addField('education', 'educationContainer', 'education')">Add More Education</button>
+            <button type="button" onclick="removeField('education', 'educationContainer', 'education')">Remove Last Education</button>
+        </div>
         </fieldset>
 
         <fieldset>
@@ -66,13 +70,12 @@
         <fieldset id="skillsFieldset">
             <legend>Skills</legend>
             <div id="skillsContainer">
-                <!-- Initial skill input with the button next to it -->
-                <input name="skills" placeholder="Skill" required />
-                <button type="button" id="addSkillButton" onclick="addSkillField()">Add Skills</button>
-                <button type="button" id="removeSkillButton" onclick="removeSkillField()">Remove Skills</button>
-            </div>
+                <input name="skill1" id="skill1" placeholder="Skill" required />
+            <button type="button" onclick="addField('skills', 'skillsContainer', 'skill')">Add More Skills</button>
+            <button type="button" onclick="removeField('skills', 'skillsContainer', 'skill')">Remove Last Skill</button>
+        </div>
         </fieldset>
-
+        
         <fieldset>
             <legend>About Me</legend>
             <!-- Using textareas for potentially longer, multiline descriptions -->

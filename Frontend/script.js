@@ -44,43 +44,49 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    let skillCount = 1; // Start with one skill input field
-    const maxSkills = 7; // Maximum number of skill fields
+    // Function to add a new field (generic for skills, education, etc.)
+    window.addField = function(fieldType, containerId, fieldPrefix) {
+        let fieldCount = window[`${fieldType}Count`] || 1; // Use dynamic field count
+        const maxFields = 7; // Maximum number of fields per section
 
-    window.addSkillField = function() {
-        // Check if maximum number of skills is reached
-        if (skillCount >= maxSkills) {
-            alert("You can only add up to 7 skills.");
+        // Check if maximum number of fields is reached
+        if (fieldCount >= maxFields) {
+            alert(`You can only add up to ${maxFields} ${fieldType}.`);
             return;
         }
 
-        skillCount++; // Increment the counter
+        fieldCount++; // Increment the counter for this field type
+        window[`${fieldType}Count`] = fieldCount; // Update the field count
 
-        // Create new skill input field
+        // Create new input element
         const newInput = document.createElement('input');
-        newInput.name = `skill${skillCount}`;
-        newInput.id = `skill${skillCount}`;
-        newInput.placeholder = "Skill";
+        newInput.name = `${fieldPrefix}${fieldCount}`;
+        newInput.id = `${fieldPrefix}${fieldCount}`;
+        newInput.placeholder = `${fieldPrefix.charAt(0).toUpperCase() + fieldPrefix.slice(1)}`;
         newInput.required = true;
 
-        // Create a line break
+        // Create line break element
         const lineBreak = document.createElement('br');
-        lineBreak.id = `br${skillCount}`;
+        lineBreak.id = `br${fieldPrefix}${fieldCount}`;
 
-        // Append new input and line break to the skills container
-        const skillsContainer = document.getElementById('skillsContainer');
-        skillsContainer.appendChild(lineBreak);
-        skillsContainer.appendChild(newInput);
+        // Append new input and line break to the container
+        const container = document.getElementById(containerId);
+        container.appendChild(lineBreak);
+        container.appendChild(newInput);
     };
 
-    window.removeSkillField = function() {
-        if (skillCount > 1) {
-            // Remove the last skill input field and its line break
-            document.getElementById(`skill${skillCount}`).remove();
-            document.getElementById(`br${skillCount}`).remove();
-            skillCount--; // Decrement the counter
+    // Function to remove the last added field (generic for skills, education, etc.)
+    window.removeField = function(fieldType, containerId, fieldPrefix) {
+        let fieldCount = window[`${fieldType}Count`] || 1; // Use dynamic field count
+
+        if (fieldCount > 1) {
+            // Remove the last added field and its line break
+            document.getElementById(`${fieldPrefix}${fieldCount}`).remove();
+            document.getElementById(`br${fieldPrefix}${fieldCount}`).remove();
+            fieldCount--; // Decrement the counter for this field type
+            window[`${fieldType}Count`] = fieldCount; // Update the field count
         } else {
-            alert("You must have at least one skill field.");
+            alert(`You must have at least one ${fieldType} field.`);
         }
     };
 });
