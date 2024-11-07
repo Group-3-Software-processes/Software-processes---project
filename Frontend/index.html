@@ -37,8 +37,24 @@
         </fieldset>
 
         <fieldset>
+            <legend>LinkedIn</legend>
+            <input type="url" name="linkedin" placeholder="Link to your LinkedIn Profile" required />
+        </fieldset>
+
+        <fieldset>
+            <legend>GitHub</legend>
+            <input type="url" name="github" placeholder="Link to your GitHub Profile" required />
+        </fieldset>
+
+        <fieldset>
             <legend>Education</legend>
             <input type="text" name="education" placeholder="Education" required />
+        </fieldset>
+
+        <fieldset>
+            <legend>Occupation</legend>
+            <!-- Using textareas for potentially longer, multiline descriptions -->
+            <textarea name="occupation1" placeholder="Occupation 1" rows="3" required></textarea>
         </fieldset>
 
         <fieldset>
@@ -53,6 +69,12 @@
             <input name="skill1" placeholder="Skill" rows="2" required />
 
             <button type="button" onclick="addSkillField()">Add More Skills</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>About Me</legend>
+            <!-- Using textareas for potentially longer, multiline descriptions -->
+            <textarea name="about" placeholder="Tell us about yourself" rows="4" required></textarea>
         </fieldset>
 
         <button type="submit">Generate CV</button>
