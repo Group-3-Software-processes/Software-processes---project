@@ -53,21 +53,21 @@
 
         <fieldset>
             <legend>Occupation</legend>
-            <!-- Using textareas for potentially longer, multiline descriptions -->
+            <!-- Using textarea for potentially longer, multiline descriptions -->
             <textarea name="occupation1" placeholder="Occupation" rows="3" required></textarea>
         </fieldset>
 
         <fieldset>
             <legend>Experience</legend>
             <!-- Using textareas for potentially longer, multiline descriptions -->
-            <textarea name="experience1" placeholder="Experience" rows="3" required></textarea>
+            <input name="experience" placeholder="Experience" rows="3" required></input>
         </fieldset>
 
         <fieldset id="skillsFieldset">
             <legend>Skills</legend>
             <div id="skillsContainer">
                 <!-- Initial skill input with the button next to it -->
-                <input name="skill1" placeholder="Skill" required />
+                <input name="skills" placeholder="Skill" required />
                 <button type="button" id="addSkillButton" onclick="addSkillField()">Add More Skills</button>
             </div>
         </fieldset>

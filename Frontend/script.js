@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const phone = form.querySelector('input[name="phone"]').value;
         const address = form.querySelector('input[name="address"]').value;
 
+        const experience = form.querySelector('input[name="experience"]').value; // Incorrect selector
+        const education = form.querySelector('input[name="education"]').value;
+        const skills = form.querySelector('input[name="skills"]').value;
+
         const linkedin = form.querySelector('input[name="linkedin"]').value;
         const github = form.querySelector('input[name="github"]').value;
         const occupation = form.querySelector('textarea[name="occupation1"]').value;
@@ -29,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`GitHub: ${github}`);
         console.log(`Occupation: ${occupation}`);
         console.log(`About Me: ${aboutMe}`);
+        console.log(`Experience: ${experience}`);
+        console.log(`Education: ${education}`);
+        console.log(`Skills: ${skills}`);
 
         if (file) {
             console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);
