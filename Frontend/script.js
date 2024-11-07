@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const email = form.querySelector('input[name="email"]').value;
         const phone = form.querySelector('input[name="phone"]').value;
         const address = form.querySelector('input[name="address"]').value;
+
+        const linkedin = form.querySelector('input[name="linkedin"]').value;
+        const github = form.querySelector('input[name="github"]').value;
+        const occupation = form.querySelector('input[name="occupation"]').value;
+        const aboutMe = form.querySelector('textarea[name="about"]').value;
         
         // Retrieve the file and display its details
         const fileInput = form.querySelector('input[name="picture"]');
@@ -19,7 +24,14 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`Email: ${email}`);
         console.log(`Phone: ${phone}`);
         console.log(`Address: ${address}`);
-        
+        console.log(`LinkedIn: ${linkedin}`);
+        console.log(`GitHub: ${github}`);
+        console.log(`Education: ${education}`);
+        console.log(`Occupation: ${occupation1}`);
+        console.log(`Experience: ${experience1}`);
+        console.log(`Skill: ${skill1}`);
+        console.log(`About Me: ${about}`);
+
         if (file) {
             console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);
         } else {
