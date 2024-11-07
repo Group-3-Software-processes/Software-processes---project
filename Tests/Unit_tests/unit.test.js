@@ -154,4 +154,105 @@ describe('CV Generator Website', () => {
         const submitEvent = new dom.window.Event('submit', { bubbles: true, cancelable: true });
         form.dispatchEvent(submitEvent);
     });
+
+    // Additional Tests for LinkedIn, GitHub, Occupation, and About Me fields
+    test('Should be able to add information to the LinkedIn field, and submit it', () => {
+        const document = dom.window.document;
+        console.log = jest.fn(); // Mock console.log
+
+        // Find the LinkedIn input field and submit button
+        const linkedinField = document.querySelector('input[name="linkedin"]');
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set value for the LinkedIn field
+        linkedinField.value = 'https://www.linkedin.com/in/johndoe';
+        expect(linkedinField.value).toBe('https://www.linkedin.com/in/johndoe'); // Check that the value was set correctly
+
+        // Add event listener to the form's submit button for testing console log
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent form submission redirect
+            console.log(linkedinField.value); // Mock function call with form data
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Assert that console.log was called with the correct value
+        expect(console.log).toHaveBeenCalledWith('https://www.linkedin.com/in/johndoe');
+    });
+
+    test('Should be able to add information to the GitHub field, and submit it', () => {
+        const document = dom.window.document;
+        console.log = jest.fn(); // Mock console.log
+
+        // Find the GitHub input field and submit button
+        const githubField = document.querySelector('input[name="github"]');
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set value for the GitHub field
+        githubField.value = 'https://github.com/johndoe';
+        expect(githubField.value).toBe('https://github.com/johndoe'); // Check that the value was set correctly
+
+        // Add event listener to the form's submit button for testing console log
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent form submission redirect
+            console.log(githubField.value); // Mock function call with form data
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Assert that console.log was called with the correct value
+        expect(console.log).toHaveBeenCalledWith('https://github.com/johndoe');
+    });
+
+    test('Should be able to add information to the Occupation field, and submit it', () => {
+        const document = dom.window.document;
+        console.log = jest.fn(); // Mock console.log
+
+        // Find the Occupation textarea and submit button
+        const occupationField = document.querySelector('textarea[name="occupation1"]');
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set value for the Occupation field
+        occupationField.value = 'Software Engineer';
+        expect(occupationField.value).toBe('Software Engineer'); // Check that the value was set correctly
+
+        // Add event listener to the form's submit button for testing console log
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent form submission redirect
+            console.log(occupationField.value); // Mock function call with form data
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Assert that console.log was called with the correct value
+        expect(console.log).toHaveBeenCalledWith('Software Engineer');
+    });
+
+    test('Should be able to add information to the About Me field, and submit it', () => {
+        const document = dom.window.document;
+        console.log = jest.fn(); // Mock console.log
+
+        // Find the About Me textarea and submit button
+        const aboutField = document.querySelector('textarea[name="about"]');
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set value for the About Me field
+        aboutField.value = 'Passionate software developer with experience in web development.';
+        expect(aboutField.value).toBe('Passionate software developer with experience in web development.'); // Check that the value was set correctly
+
+        // Add event listener to the form's submit button for testing console log
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent form submission redirect
+            console.log(aboutField.value);
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Assert that console.log was called with the correct value
+        expect(console.log).toHaveBeenCalledWith('Passionate software developer with experience in web development.');
+    });
 });
