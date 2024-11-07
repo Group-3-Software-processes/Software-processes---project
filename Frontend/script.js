@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('cv-form');
 
+    // Existing form submission handler
     form.addEventListener('submit', (e) => {
         e.preventDefault(); // Prevent actual form submission
 
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const github = form.querySelector('input[name="github"]').value;
         const occupation = form.querySelector('textarea[name="occupation1"]').value;
         const aboutMe = form.querySelector('textarea[name="about"]').value;
-        
+
         // Retrieve the file and display its details
         const fileInput = form.querySelector('input[name="picture"]');
         const file = fileInput.files[0];
@@ -35,4 +36,32 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("No picture uploaded.");
         }
     });
+
+    // Our skill field functionality below
+    let skillCount = 1; // Counter for unique skill field names
+    const maxSkills = 7; // Maximum number of skill fields
+
+    window.addSkillField = function() {
+        // Check if the current number of skills has reached the maximum
+        if (skillCount >= maxSkills) {
+            console.warn("You can only add up to 7 skills.");
+            alert("You can only add up to 7 skills.");
+            return;
+        }
+
+        skillCount++; // Increment the counter for unique naming
+
+        // Creating a new input element
+        const newInput = document.createElement('input');
+        newInput.name = `skill${skillCount}`; // Set a unique name
+        newInput.placeholder = "Skill"; // Set the placeholder
+        newInput.required = true; // Make it required if needed
+
+        // Create a line break
+        const lineBreak = document.createElement('br');
+
+        // Append the new input and the line break to the container
+        document.getElementById('skillsContainer').appendChild(lineBreak);
+        document.getElementById('skillsContainer').appendChild(newInput);
+    };
 });

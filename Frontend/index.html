@@ -63,12 +63,13 @@
             <textarea name="experience1" placeholder="Experience 1" rows="3" required></textarea>
         </fieldset>
 
-        <fieldset>
+        <fieldset id="skillsFieldset">
             <legend>Skills</legend>
-            <!-- Using textareas to allow multiple skills per field if desired -->
-            <input name="skill1" placeholder="Skill" rows="2" required />
-
-            <button type="button" onclick="addSkillField()">Add More Skills</button>
+            <div id="skillsContainer">
+                <!-- Initial skill input with the button next to it -->
+                <input name="skill1" placeholder="Skill" required />
+                <button type="button" id="addSkillButton" onclick="addSkillField()">Add More Skills</button>
+            </div>
         </fieldset>
 
         <fieldset>
