@@ -255,4 +255,29 @@ describe('CV Generator Website', () => {
         // Assert that console.log was called with the correct value
         expect(console.log).toHaveBeenCalledWith('Passionate software developer with experience in web development.');
     });
+
+    test('Should be able to add information to the Experince field, and submit it', () => {
+        const document = dom.window.document;
+        console.log = jest.fn(); // Mock console.log
+
+        // Find the experience textarea and submit button
+        const expField = document.querySelector('textarea[name="experience"]');
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set value for the experience field
+        expField.value = 'I have worked in a big softwarecompany and learned a lot from it.';
+        expect(expField.value).toBe('I have worked in a big softwarecompany and learned a lot from it.'); // Check that the value was set correctly
+
+        // Add event listener to the form's submit button for testing console log
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent form submission redirect
+            console.log(expField.value);
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Assert that console.log was called with the correct value
+        expect(console.log).toHaveBeenCalledWith('I have worked in a big softwarecompany and learned a lot from it.');
+    });
 });
