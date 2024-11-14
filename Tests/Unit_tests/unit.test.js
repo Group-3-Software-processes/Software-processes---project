@@ -22,7 +22,7 @@ describe('CV Generator Website', () => {
     test('should load the CSS file', () => {
         const link = dom.window.document.querySelector('link[rel="stylesheet"]');
         expect(link).toBeInTheDocument();
-        expect(link.href).toContain('style.css');
+        expect(link.href).toContain('output.css');
     });
 
     test('should load the JavaScript file', () => {
