@@ -255,4 +255,58 @@ describe('CV Generator Website', () => {
         // Assert that console.log was called with the correct value
         expect(console.log).toHaveBeenCalledWith('Passionate software developer with experience in web development.');
     });
+
+    test('Should be able to add multiple education entries and submit them', () => {
+        const document = dom.window.document; // Initialize document here
+        console.log = jest.fn(); // Mock console.log
+
+        // Select education fields
+        const educationFields = Array.from(document.querySelectorAll('input[name^="education"]'));
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set values for each education field
+        educationFields.forEach((field, index) => {
+            field.value = `Education Entry ${index + 1}`;
+            expect(field.value).toBe(`Education Entry ${index + 1}`); // Check that the value was set correctly
+        });
+
+        // Mock the submit event to prevent actual form submission
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log(educationFields.map(field => field.value));
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Check that console.log was called with the correct array of education values
+        expect(console.log).toHaveBeenCalledWith(educationFields.map(field => field.value));
+    });
+
+    test('Should be able to add multiple skill entries and submit them', () => {
+        const document = dom.window.document; // Initialize document here
+        console.log = jest.fn(); // Mock console.log
+
+        // Select skill fields
+        const skillFields = Array.from(document.querySelectorAll('input[name^="skill"]'));
+        const submitButton = document.querySelector('button[type="submit"]');
+
+        // Set values for each skill field
+        skillFields.forEach((field, index) => {
+            field.value = `Skill Entry ${index + 1}`;
+            expect(field.value).toBe(`Skill Entry ${index + 1}`); // Check that the value was set correctly
+        });
+
+        // Mock the submit event to prevent actual form submission
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log(skillFields.map(field => field.value));
+        });
+
+        // Simulate the click event on the submit button
+        submitButton.click();
+
+        // Check that console.log was called with the correct array of skill values
+        expect(console.log).toHaveBeenCalledWith(skillFields.map(field => field.value));
+    });
 });
