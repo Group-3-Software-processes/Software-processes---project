@@ -105,7 +105,17 @@
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
-
+#li2 {float: right;}
+#li2 a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+#li2 a:hover {
+    background-color: #111;
+}
 /*
 ! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com
 */
