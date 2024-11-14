@@ -7,23 +7,22 @@
     <title>CV Generator</title>
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
+
 <body>
 <!--  Header section for the top bar -->
-<header style="background-color: #333; color: white; padding: 10px; text-align: center;">
+<header>
     <h1>CV Generator</h1>
 </header>
-
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="information.html">About me</a></li>
             <li><a href="saves.html">My saved CV's</a></li>
             <li id ="li2"><a href="pro.html">Go Pro</a></li>
-            <li><img src="assets/icon.png" style="width:50px;height: 50px; float:right;;"></li>
+            <li><img src="assets/icon.png" style="width:30px;height: 30px;;"></li>
         </ul>
     </nav>
-    <h1>CV Generator</h1>
-    <!-- Single Form for All Sections -->
+        <!-- Single Form for All Sections -->
     <form id="cv-form">
         <fieldset>
             <legend>Name</legend>
@@ -64,8 +63,8 @@
             <legend>Education</legend>
             <div id="educationContainer">
                 <input name="education1" id="education1" placeholder="Education"  />
-                <button type="button" onclick="addField('education', 'educationContainer', 'education')">Add More Education</button>
-                <button type="button" onclick="removeField('education', 'educationContainer', 'education')">Remove Last Education</button>
+                <button type="button" onclick="addField('education', 'educationContainer', 'education')">+</button>
+                <button type="button" onclick="removeField('education', 'educationContainer', 'education')">-</button>
             </div>
         </fieldset>
 
@@ -83,8 +82,8 @@
             <legend>Skills</legend>
             <div id="skillsContainer">
                 <input name="skill1" id="skill1" placeholder="Skill"  />
-                <button type="button" onclick="addField('skills', 'skillsContainer', 'skill')">Add More Skills</button>
-                <button type="button" onclick="removeField('skills', 'skillsContainer', 'skill')">Remove Last Skill</button>
+                <button type="button" onclick="addField('skills', 'skillsContainer', 'skill')">+</button>
+                <button type="button" onclick="removeField('skills', 'skillsContainer', 'skill')">-</button>
             </div>
         </fieldset>
         
