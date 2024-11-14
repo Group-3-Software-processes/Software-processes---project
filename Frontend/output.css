@@ -374,7 +374,9 @@ Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/
 /*
 Add the correct vertical alignment in Chrome and Firefox.
 */
-
+form {
+  padding-left: 2%;
+}
 progress {
   vertical-align: baseline;
 }
@@ -482,18 +484,7 @@ menu {
   margin: 0;
   padding: 0;
 }
-li2 {float: left;}
-li2 a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-li2 a:hover {
-  background-color: #111;
-  
-}
+
 /*
 Reset default styling for dialogs.
 */
