@@ -24,4 +24,4 @@ coverage/
 
 # Ignore IDE-specific files (optional, depending on your development environment)
 .vscode/
-.idea/
+.idea/*
