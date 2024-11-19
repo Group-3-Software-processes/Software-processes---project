@@ -1,0 +1,147 @@
+\documentclass[lighthipster]{CV}
+% available options are: darkhipster, lighthipster, pastel, allblack, grey, verylight, withoutsidebar
+\usepackage[utf8]{inputenc}
+\usepackage[default]{raleway}
+\usepackage[margin=1cm, a4paper]{geometry}
+
+%------------------------------------------------------------------ Variables
+\newlength{\rightcolwidth}
+\newlength{\leftcolwidth}
+\setlength{\leftcolwidth}{0.23\textwidth}
+\setlength{\rightcolwidth}{0.75\textwidth}
+
+%------------------------------------------------------------------
+\title{CV Template}
+\author{}
+\date{}
+
+\pagestyle{empty}
+\begin{document}
+
+    \thispagestyle{empty}
+
+%-------------------------------------------------------------
+    \section*{Start}
+
+    \simpleheader{headercolour}{First Name}{Last Name}{Job Title}{white}
+
+%------------------------------------------------
+    \subsection*{}
+    \vspace{4em}
+
+    \setlength{\columnsep}{1.5cm}
+    \columnratio{0.23}[0.75]
+    \begin{paracol}{2}
+        \hbadness5000
+
+        \paracolbackgroundoptions
+
+        \footnotesize
+        {\setasidefontcolour
+        \flushright
+            \begin{center}
+                \roundpic{photo.jpg} % Placeholder for profile picture
+            \end{center}
+
+            \bg{cvgreen}{white}{About me}\\[0.5em]
+
+            \bigskip
+
+            \bg{cvgreen}{white}{Personal Info} \\[0.5em]
+
+            \bigskip
+
+            \bg{cvgreen}{white}{Specializations} \\[0.5em]
+
+            \bigskip
+
+            \bg{cvgreen}{white}{Interests}\\[0.5em]
+
+            \bigskip
+
+            \infobubble{\faAt}{cvgreen}{white}{email@example.com}
+            \infobubble{\faTwitter}{cvgreen}{white}{@username}
+            \infobubble{\faGithub}{cvgreen}{white}{github_username}
+            \infobubble{\faLinkedin}{cvgreen}{white}{linkedin_profile}
+        }
+%-----------------------------------------------------------
+        \switchcolumn
+
+        \small
+        \section*{Short Resumé}
+
+        \begin{tabular}{r| p{0.5\textwidth} c}
+            \cvevent{Year--Year}{Job Title}{Role}{Location}{Description}{icon.png} \\
+            \cvevent{Year--Year}{Job Title}{Role}{Location}{Description}{icon.png} \\
+        \end{tabular}
+        \vspace{3em}
+
+        \begin{minipage}[t]{0.35\textwidth}
+            \section*{Degrees}
+            \begin{tabular}{r p{0.6\textwidth} c}
+                \cvdegree{Year}{Degree}{Specialization}{Institution \color{headerblue}}{}{icon.png} \\
+                \cvdegree{Year}{Degree}{Specialization}{Institution \color{headerblue}}{}{icon.png}
+            \end{tabular}
+        \end{minipage}\hfill
+        \begin{minipage}[t]{0.3\textwidth}
+            \section*{Skills}
+            \begin{tabular}{r @{\hspace{0.5em}}l}
+                \bg{skilllabelcolour}{iconcolour}{Skill 1} &  \barrule{0.4}{0.5em}{cvpurple}\\
+                \bg{skilllabelcolour}{iconcolour}{Skill 2} & \barrule{0.55}{0.5em}{cvgreen} \\
+                \bg{skilllabelcolour}{iconcolour}{Skill 3} & \barrule{0.5}{0.5em}{cvpurple} \\
+                \bg{skilllabelcolour}{iconcolour}{Skill 4} & \barrule{0.25}{0.5em}{cvpurple}
+            \end{tabular}
+        \end{minipage}
+
+        \section*{Experience}
+        \begin{tabular}{r| p{0.5\textwidth} c}
+            \cvevent{Year--Year}{Position}{Role}{Location}{Description}{icon.png} \\
+            \cvevent{Year}{Freelance}{Role}{Location}{Description}{icon.png} \\
+        \end{tabular}
+        \vspace{3em}
+
+        \begin{minipage}[t]{0.3\textwidth}
+            \section*{Certificates \& Grants}
+            \begin{tabular}{>{\footnotesize\bfseries}r >{\footnotesize}p{0.55\textwidth}}
+                Year & Certificate or Grant Name \\
+                Year & Certificate or Grant Name
+            \end{tabular}
+            \bigskip
+
+            \section*{Languages}
+            \begin{tabular}{l | ll}
+                \textbf{Language 1} & Proficiency Level & Additional Info \\
+                \textbf{Language 2} & Proficiency Level & Additional Info
+            \end{tabular}
+            \bigskip
+
+        \end{minipage}\hfill
+        \begin{minipage}[t]{0.3\textwidth}
+            \section*{Publications}
+            \begin{tabular}{>{\footnotesize\bfseries}r >{\footnotesize}p{0.7\textwidth}}
+                Year & Title of Publication, Publisher/Journal. \\
+                Year & Title of Publication, Publisher/Journal.
+            \end{tabular}
+            \bigskip
+
+            \section*{Talks}
+            \begin{tabular}{>{\footnotesize\bfseries}r >{\footnotesize}p{0.6\textwidth}}
+                Date & Title of Talk, Venue.
+            \end{tabular}
+        \end{minipage}
+
+        \vfill{} % Whitespace before final footer
+
+%----------------------------------------------------------------------------------------
+%	FINAL FOOTER
+%----------------------------------------------------------------------------------------
+        \setlength{\parindent}{0pt}
+        \begin{minipage}[t]{\rightcolwidth}
+            \begin{center}\fontfamily{\sfdefault}\selectfont \color{black!70}
+            {\small First Name Last Name \icon{\faEnvelopeO}{cvgreen}{} Address \icon{\faMapMarker}{cvgreen}{} Location \icon{\faPhone}{cvgreen}{} Phone Number \newline\icon{\faAt}{cvgreen}{} \protect\url{email@example.com}}
+            \end{center}
+        \end{minipage}
+
+    \end{paracol}
+
+\end{document}
