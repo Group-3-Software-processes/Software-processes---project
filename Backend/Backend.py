@@ -27,7 +27,7 @@ def generate_latex(data):
     \begin{document}
     \title{CV for """ + name + r"""}
     \maketitle
-    
+
     \section*{Contact Information}
     \begin{itemize}
         \item Email: """ + email + r"""
@@ -40,24 +40,28 @@ def generate_latex(data):
     \section*{Education}
     \begin{itemize}
     """
+    # Add education items
     for edu in education:
-        latex_content += r"\item " + edu + r"\n"
-
-    latex_content += r"\end{itemize}\n"
+        latex_content += r"\item " + edu + "\n"
 
     latex_content += r"""
+    \end{itemize}
+
     \section*{Experience}
-    """ + experience + r"""
+    """ + (experience if experience else "No experience provided") + r"""
+
     \section*{Occupation}
-    """ + occupation + r"""
+    """ + (occupation if occupation else "No occupation provided") + r"""
+
     \section*{About Me}
-    """ + about_me + r"""
+    """ + (about_me if about_me else "No information provided") + r"""
 
     \section*{Skills}
     \begin{itemize}
     """
+    # Add skills items
     for skill in skills:
-        latex_content += r"\item " + skill + r"\n"
+        latex_content += r"\item " + skill + "\n"
     latex_content += r"""
     \end{itemize}
     \end{document}
