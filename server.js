@@ -1,13 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const { exec } = require('child_process');
-const mysql = require('mysql2');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { writeFileSync } from 'fs';
+import { exec } from 'child_process';
+import { createConnection } from 'mysql2';
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const db = mysql.createConnection({
+const db = createConnection({
     host: 'localhost',
     user: 'cv_user',
     password: 'andreas04',
@@ -37,7 +38,7 @@ app.post('/api/generate', (req, res) => {
     \\end{document}
     `;
 
-    fs.writeFileSync('cv.tex', latex);
+    writeFileSync('cv.tex', latex);
 
     // Compile LaTeX to PDF
     exec('pdflatex cv.tex', (err) => {

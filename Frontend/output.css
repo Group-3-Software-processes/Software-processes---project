@@ -167,7 +167,7 @@ nav ul li img {
 
 
 /* Form styling CV Form (Front page) */
-#cv-form {
+form.cv-form {
   width: 80%;
   max-width: 700px;
   margin: 20px auto;
