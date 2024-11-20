@@ -45,6 +45,38 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             console.log("No picture uploaded.");
         }
+        // *** New Code: Send Data to Backend ***
+        const data = {
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            linkedin: linkedin,
+            github: github,
+            education: education,
+            skills: skills,
+            experience: experience,
+            occupation: occupation,
+            about_me: aboutMe
+        };
+
+        fetch('http://127.0.0.1:5000/submit', { // Endpoint of the backend
+            method: 'POST', // HTTP POST method
+            headers: {
+                'Content-Type': 'application/json', // Inform backend we are sending JSON
+            },
+            body: JSON.stringify(data), // Convert the JavaScript object to JSON
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success:", data.message); // Log success message
+                alert(data.message); // Display the success message to the user
+            })
+            .catch((error) => {
+                console.error("Error:", error); // Log errors, if any
+                alert("There was an error generating the CV."); // Display an error message
+            });
+        // *** End of New Code ***
     });
 
     // Function to add a new field (generic for skills, education, etc.)

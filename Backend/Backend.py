@@ -2,8 +2,10 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Only if needed for CORS support
 
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all origins, if needed
+
 
 def generate_latex(data):
     name = data.get("name", "Name Not Provided")
@@ -19,39 +21,47 @@ def generate_latex(data):
     about_me = data.get("about_me", "About Me Not Provided")
 
     # Create LaTeX content
-    latex_content = f"""
-    \\documentclass{{article}}
-    \\usepackage{{hyperref}}
-    \\begin{document}
-    \\title{{CV for {name}}}
-    \\maketitle
+    latex_content = r"""
+    \documentclass{article}
+    \usepackage{hyperref}
+    \begin{document}
+    \title{CV for """ + name + r"""}
+    \maketitle
+    
+    \section*{Contact Information}
+    \begin{itemize}
+        \item Email: """ + email + r"""
+        \item Phone: """ + phone + r"""
+        \item Address: """ + address + r"""
+        \item LinkedIn: \url{""" + linkedin + r"""}
+        \item GitHub: \url{""" + github + r"""}
+    \end{itemize}
 
-    \\section*{{Contact Information}}
-    \\begin{itemize}
-        \\item Email: {email}
-        \\item Phone: {phone}
-        \\item Address: {address}
-        \\item LinkedIn: \\url{{{linkedin}}}
-        \\item GitHub: \\url{{{github}}}
-    \\end{itemize}
-
-    \\section*{{Education}}
-    \\begin{itemize}
+    \section*{Education}
+    \begin{itemize}
     """
     for edu in education:
-        latex_content += f"\\item {edu}\n"
+        latex_content += r"\item " + edu + r"\n"
 
-    latex_content += "\\end{itemize}\n"
+    latex_content += r"\end{itemize}\n"
 
-    latex_content += f"\\section*{{Experience}}\n{experience}\n"
-    latex_content += f"\\section*{{Occupation}}\n{occupation}\n"
-    latex_content += f"\\section*{{About Me}}\n{about_me}\n"
+    latex_content += r"""
+    \section*{Experience}
+    """ + experience + r"""
+    \section*{Occupation}
+    """ + occupation + r"""
+    \section*{About Me}
+    """ + about_me + r"""
 
-    latex_content += "\\section*{{Skills}}\n\\begin{itemize}\n"
+    \section*{Skills}
+    \begin{itemize}
+    """
     for skill in skills:
-        latex_content += f"\\item {skill}\n"
-    latex_content += "\\end{itemize}\n"
-    latex_content += "\\end{document}"
+        latex_content += r"\item " + skill + r"\n"
+    latex_content += r"""
+    \end{itemize}
+    \end{document}
+    """
 
     # Save LaTeX file
     output_folder = "output"
@@ -62,11 +72,18 @@ def generate_latex(data):
 
     return tex_file_path
 
+
+# Route to handle form submissions
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.json
-    tex_file_path = generate_latex(data)
-    return jsonify({"message": f"LaTeX file created at {tex_file_path}!"})
+    data = request.json  # Retrieve JSON data from the request
+    print("Received data:", data)  # Debugging step
+    try:
+        tex_file_path = generate_latex(data)  # Generate LaTeX file
+        return jsonify({"message": f"LaTeX file created at {tex_file_path}!"})  # Respond to frontend
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)  # Run Flask app in debug mode
