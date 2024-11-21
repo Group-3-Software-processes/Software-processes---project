@@ -21,6 +21,7 @@ temp/
 
 # Ignore coverage directory (if you're using test coverage tools like Jest)
 coverage/
+node_modules/*
 
 # Ignore IDE-specific files (optional, depending on your development environment)
 .vscode/
