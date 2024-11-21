@@ -28,13 +28,13 @@ const generateLatexFile = (data, outputFile) => {
 
     // Replace placeholders with actual data
     template = template.replace('<NAME>', data.name)
-                       .replace('<OCCUPATION>', data.occupation)
+                       .replace('<OCCUPATION>', data.occupation1)
                        .replace('<EMAIL>', data.email)
                        .replace('<PHONE>', data.phone)
                        .replace('<ADDRESS>', data.address)
                        .replace('<LINKEDIN>', data.linkedin)
                        .replace('<GITHUB>', data.github)
-                       .replace('<ABOUT_ME>', data.aboutMe)
+                       .replace('<ABOUT_ME>', data.about)
                        .replace('<EXPERIENCE>', data.experience);
 
     // Handle dynamic lists
