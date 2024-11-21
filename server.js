@@ -38,8 +38,8 @@ const generateLatexFile = (data, outputFile) => {
                        .replace('<EXPERIENCE>', data.experience);
 
     // Handle dynamic lists
-    const educationList = data.education.map(item => `    \\item ${item}`).join('\n');
-    const skillsList = data.skills.map(skill => `    \\item ${skill}`).join('\n');
+    const educationList = data.education1.map(item => `    \\item ${item}`).join('\n');
+    const skillsList = data.skill1.map(skill => `    \\item ${skill}`).join('\n');
 
     template = template.replace('<EDUCATION_LIST>', educationList)
                        .replace('<SKILLS_LIST>', skillsList);
