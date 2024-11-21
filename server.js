@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
 import { exec } from 'child_process';
 import { createConnection } from 'mysql2';
 const app = express();
@@ -22,7 +22,36 @@ db.connect((err) => {
     }
     console.log('Connected to the MySQL database!');
 });
+const generateLatexFile = (data, outputFile) => {
+    // Read the LaTeX template
+    let template = readFileSync('./template.tex', 'utf8');
 
+    // Replace placeholders with actual data
+    template = template.replace('<NAME>', data.name)
+                       .replace('<OCCUPATION>', data.occupation)
+                       .replace('<EMAIL>', data.email)
+                       .replace('<PHONE>', data.phone)
+                       .replace('<ADDRESS>', data.address)
+                       .replace('<LINKEDIN>', data.linkedin)
+                       .replace('<GITHUB>', data.github)
+                       .replace('<ABOUT_ME>', data.aboutMe)
+                       .replace('<EXPERIENCE>', data.experience);
+
+    // Handle dynamic lists
+    const educationList = data.education.map(item => `    \\item ${item}`).join('\n');
+    const skillsList = data.skills.map(skill => `    \\item ${skill}`).join('\n');
+
+    template = template.replace('<EDUCATION_LIST>', educationList)
+                       .replace('<SKILLS_LIST>', skillsList);
+
+    // Replace the picture placeholder with the actual file path
+    template = template.replace('<PICTURE_PATH>', data.picturePath);
+
+    // Write the final LaTeX content to an output file
+    writeFileSync(outputFile, template);
+
+    console.log(`LaTeX file generated: ${outputFile}`);
+};
 
 app.post('/api/generate', (req, res) => {
     const { name, email, phone } = req.body;
