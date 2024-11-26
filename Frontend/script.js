@@ -1,55 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('cv-form');
 
-    // Existing form submission handler
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent actual form submission
-
-        // Retrieve values from each input field
-        const name = form.querySelector('input[name="name"]').value;
-        const email = form.querySelector('input[name="email"]').value;
-        const phone = form.querySelector('input[name="phone"]').value;
-        const address = form.querySelector('input[name="address"]').value;
-        
-        // Retrieve all education fields
-        const education = Array.from(form.querySelectorAll('input[name^="education"]')).map(input => input.value);
-
-        // Retrieve all skills fields
-        const skills = Array.from(form.querySelectorAll('input[name^="skill"]')).map(input => input.value);
-
-        const experience = form.querySelector('textarea[name="experience"]').value;
-        const linkedin = form.querySelector('input[name="linkedin"]').value;
-        const github = form.querySelector('input[name="github"]').value;
-        const occupation = form.querySelector('textarea[name="occupation1"]').value;
-        const aboutMe = form.querySelector('textarea[name="about"]').value;
-
-        // Retrieve the file and display its details
-        const fileInput = form.querySelector('input[name="picture"]');
-        const file = fileInput.files[0];
-        
-        console.log("Form Data:");
-        console.log(`Name: ${name}`);
-        console.log(`Email: ${email}`);
-        console.log(`Phone: ${phone}`);
-        console.log(`Address: ${address}`);
-        console.log(`LinkedIn: ${linkedin}`);
-        console.log(`GitHub: ${github}`);
-        console.log(`Occupation: ${occupation}`);
-        console.log(`About Me: ${aboutMe}`);
-        console.log(`Experience: ${experience}`);
-        console.log("Education:", education);
-        console.log("Skills:", skills);
-
-        if (file) {
-            console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);
-        } else {
-            console.log("No picture uploaded.");
-        }
-    });
-
     // Function to add a new field (generic for skills, education, etc.)
-    window.addField = function(fieldType, containerId, fieldPrefix) {
-        let fieldCount = window[`${fieldType}Count`] || 1; // Use dynamic field count
+    const addField = (fieldType, containerId, fieldPrefix) => {
+        let fieldCount = window[`${fieldType}Count`] || 1; // Dynamic field count
         const maxFields = 7; // Maximum number of fields per section
 
         // Check if maximum number of fields is reached
@@ -58,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        fieldCount++; // Increment the counter for this field type
-        window[`${fieldType}Count`] = fieldCount; // Update the field count
+        fieldCount++;
+        window[`${fieldType}Count`] = fieldCount; // Update the count
 
         // Create new input element
         const newInput = document.createElement('input');
@@ -68,28 +22,71 @@ document.addEventListener("DOMContentLoaded", function() {
         newInput.placeholder = `${fieldPrefix.charAt(0).toUpperCase() + fieldPrefix.slice(1)}`;
         newInput.required = true;
 
-        // Create line break element
+        // Create a line break element
         const lineBreak = document.createElement('br');
         lineBreak.id = `br${fieldPrefix}${fieldCount}`;
 
-        // Append new input and line break to the container
+        // Append to the container
         const container = document.getElementById(containerId);
         container.appendChild(lineBreak);
         container.appendChild(newInput);
     };
 
     // Function to remove the last added field (generic for skills, education, etc.)
-    window.removeField = function(fieldType, containerId, fieldPrefix) {
-        let fieldCount = window[`${fieldType}Count`] || 1; // Use dynamic field count
+    const removeField = (fieldType, containerId, fieldPrefix) => {
+        let fieldCount = window[`${fieldType}Count`] || 1;
 
         if (fieldCount > 1) {
             // Remove the last added field and its line break
             document.getElementById(`${fieldPrefix}${fieldCount}`).remove();
             document.getElementById(`br${fieldPrefix}${fieldCount}`).remove();
-            fieldCount--; // Decrement the counter for this field type
-            window[`${fieldType}Count`] = fieldCount; // Update the field count
+            fieldCount--;
+            window[`${fieldType}Count`] = fieldCount; // Update count
         } else {
             alert(`You must have at least one ${fieldType} field.`);
         }
     };
+
+    // Add functionality to dynamically add more skill fields
+    const addSkillField = () => addField('skills', 'skills-container', 'skill');
+
+    // Form submission handler
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(form);
+
+        // Process dynamic fields (e.g., skills, education)
+        const skills = Array.from(document.querySelectorAll('input[name^="skill"]')).map(input => input.value);
+        const education = Array.from(document.querySelectorAll('input[name^="education"]')).map(input => input.value);
+
+        // Add skills and education dynamically to the FormData
+        skills.forEach(skill => formData.append('skills[]', skill));
+        education.forEach(edu => formData.append('education[]', edu));
+
+        fetch('http://127.0.0.1:5000/generate_cv', {
+            method: 'POST',
+            body: formData,
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.blob();
+        })
+        .then((blob) => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'cv.tex';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+            console.error('Error generating CV:', error);
+            alert('An error occurred while generating your CV. Please try again.');
+        });
+    });
 });
