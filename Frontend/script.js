@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('cv-form');
 
+    // Initialize counters for skills and education
+    let skillsCount = 1;
+    let educationCount = 1;
+
     // Function to add a new field (generic for skills, education, etc.)
     const addField = (fieldType, containerId, fieldPrefix) => {
-        let fieldCount = window[`${fieldType}Count`] || 1; // Dynamic field count
         const maxFields = 7; // Maximum number of fields per section
+        const fieldCount = fieldType === 'skills' ? skillsCount : educationCount;
 
         // Check if maximum number of fields is reached
         if (fieldCount >= maxFields) {
@@ -12,43 +16,56 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fieldCount++;
-        window[`${fieldType}Count`] = fieldCount; // Update the count
+        // Increment the counter
+        if (fieldType === 'skills') skillsCount++;
+        if (fieldType === 'education') educationCount++;
 
         // Create new input element
         const newInput = document.createElement('input');
-        newInput.name = `${fieldPrefix}${fieldCount}`;
-        newInput.id = `${fieldPrefix}${fieldCount}`;
+        newInput.name = `${fieldPrefix}${fieldCount + 1}`;
+        newInput.id = `${fieldPrefix}${fieldCount + 1}`;
         newInput.placeholder = `${fieldPrefix.charAt(0).toUpperCase() + fieldPrefix.slice(1)}`;
         newInput.required = true;
 
-        // Create a line break element
-        const lineBreak = document.createElement('br');
-        lineBreak.id = `br${fieldPrefix}${fieldCount}`;
-
         // Append to the container
         const container = document.getElementById(containerId);
-        container.appendChild(lineBreak);
         container.appendChild(newInput);
     };
 
     // Function to remove the last added field (generic for skills, education, etc.)
     const removeField = (fieldType, containerId, fieldPrefix) => {
-        let fieldCount = window[`${fieldType}Count`] || 1;
+        const fieldCount = fieldType === 'skills' ? skillsCount : educationCount;
 
         if (fieldCount > 1) {
-            // Remove the last added field and its line break
-            document.getElementById(`${fieldPrefix}${fieldCount}`).remove();
-            document.getElementById(`br${fieldPrefix}${fieldCount}`).remove();
-            fieldCount--;
-            window[`${fieldType}Count`] = fieldCount; // Update count
+            // Remove the last added field
+            const container = document.getElementById(containerId);
+            const lastField = container.querySelector(`#${fieldPrefix}${fieldCount}`);
+            if (lastField) lastField.remove();
+
+            // Decrement the counter
+            if (fieldType === 'skills') skillsCount--;
+            if (fieldType === 'education') educationCount--;
         } else {
             alert(`You must have at least one ${fieldType} field.`);
         }
     };
 
     // Add functionality to dynamically add more skill fields
-    const addSkillField = () => addField('skills', 'skills-container', 'skill');
+    document.getElementById('addSkillButton').addEventListener('click', () => {
+        addField('skills', 'skills-container', 'skill');
+    });
+
+    document.getElementById('removeSkillButton').addEventListener('click', () => {
+        removeField('skills', 'skills-container', 'skill');
+    });
+
+    document.getElementById('addEducationButton').addEventListener('click', () => {
+        addField('education', 'education-container', 'education');
+    });
+
+    document.getElementById('removeEducationButton').addEventListener('click', () => {
+        removeField('education', 'education-container', 'education');
+    });
 
     // Form submission handler
     form.addEventListener('submit', (e) => {
@@ -68,25 +85,25 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'POST',
             body: formData,
         })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.blob();
-        })
-        .then((blob) => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'cv.tex';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        })
-        .catch((error) => {
-            console.error('Error generating CV:', error);
-            alert('An error occurred while generating your CV. Please try again.');
-        });
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.blob();
+            })
+            .then((blob) => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'cv.tex';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch((error) => {
+                console.error('Error generating CV:', error);
+                alert('An error occurred while generating your CV. Please try again.');
+            });
     });
 });

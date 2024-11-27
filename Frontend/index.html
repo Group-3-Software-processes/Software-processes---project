@@ -61,10 +61,9 @@
 
         <fieldset>
             <legend>Education</legend>
-            <div id="educationContainer">
-                <input name="education1" id="education1" placeholder="Education"  />
-                <button type="button" onclick="addField('education', 'educationContainer', 'education')">+</button>
-                <button type="button" onclick="removeField('education', 'educationContainer', 'education')">-</button>
+            <div id="education-container">
+                <button type="button" id="addEducationButton">Add Education</button>
+                <button type="button" id="removeEducationButton">Remove Education</button>
             </div>
         </fieldset>
 
@@ -80,13 +79,12 @@
 
         <fieldset>
             <legend>Skills</legend>
-            <div id="skillsContainer">
-                <input name="skill1" id="skill1" placeholder="Skill"  />
-                <button type="button" onclick="addField('skills', 'skillsContainer', 'skill')">+</button>
-                <button type="button" onclick="removeField('skills', 'skillsContainer', 'skill')">-</button>
+            <div id="skills-container">
+                <button type="button" id="addSkillButton">Add Skill</button>
+                <button type="button" id="removeSkillButton">Remove Skill</button>
             </div>
         </fieldset>
-        
+
         <fieldset>
             <legend>About Me</legend>
             <textarea name="about" placeholder="Tell us about yourself" rows="4" ></textarea>
