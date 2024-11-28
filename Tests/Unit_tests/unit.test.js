@@ -24,7 +24,6 @@ jest.mock('fs', () => ({
 }));
 
 test('should respond to POST /api/generate', async () => {
-    console.log('Starting POST /api/generate test...');
     const response = await request(server)
         .post('/api/generate')
         .send({
@@ -41,11 +40,10 @@ test('should respond to POST /api/generate', async () => {
             skills: '[]',
             picturePath: '/path/to/picture',
         });
-
-    console.log('Received response:', response.status, response.text);
     expect(response.status).toBe(200); // Expect success
 });
 
-afterAll(() => {
+afterAll((done) => {
     jest.resetAllMocks();
+    server.close(done);
 });
