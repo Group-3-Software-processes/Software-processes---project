@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { writeFileSync, readFileSync } from 'fs';
+import { readFile, writeFile } from 'fs/promises';
 import { exec } from 'child_process';
 import { createConnection } from 'mysql2';
 
@@ -15,6 +15,18 @@ const db = createConnection({
     database: 'UserProfileDB',
 });
 
+// May need to be changed
+// Basic form validation
+document.querySelector('.register-form').addEventListener('submit', function (e) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Passwords do not match. Please try again.');
+    }
+});
+
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err);
@@ -24,8 +36,8 @@ db.connect((err) => {
 });
 
 // Function to generate LaTeX file
-const generateLatexFile = (data, outputFile) => {
-    let template = readFileSync('./Template1.tex', 'utf8');
+const generateLatexFile = async(data, outputFile) => {
+    let template = await readFile('./Template1.tex', 'utf8');
 
     // Replace placeholders with actual data
     template = template.replace('<NAME>', data.name || 'N/A')
@@ -37,18 +49,19 @@ const generateLatexFile = (data, outputFile) => {
         .replace('<GITHUB>', data.github || 'N/A')
         .replace('<ABOUT_ME>', data.about || 'N/A')
         .replace('<EXPERIENCE>', data.experience || 'N/A');
-
+    
     // Handle dynamic lists for education and skills
     const educationList = (data.education1 || []).map(item => `    \\item ${item}`).join('\n');
     const skillsList = (data.skill1 || []).map(skill => `    \\item ${skill}`).join('\n');
-
+    
     template = template.replace('<EDUCATION_LIST>', educationList || '    \\item N/A')
         .replace('<SKILLS_LIST>', skillsList || '    \\item N/A');
+    
 
     // Replace picture path
     template = template.replace('<PICTURE_PATH>', data.picturePath || '');
 
-    writeFileSync(outputFile, template);
+    writeFile(outputFile, template);
     console.log(`LaTeX file generated: ${outputFile}`);
 };
 
@@ -88,12 +101,13 @@ app.post('/api/generate', (req, res) => {
     }, outputFile);
 
     // Compile LaTeX to PDF
-    exec(`pdflatex -output-directory=./output ${outputFile}`, (err, stdout, stderr) => {
+
+    exec(`pdflatex ${outputFile}`, (err, stdout, stderr) => {
         if (err) {
             console.error('Error compiling LaTeX:', stderr);
             return res.status(500).send('Error generating CV.');
         }
-
+        console.log('LaTeX compilation output:', stdout);
         // Send the generated PDF to the client
         res.download('cv.pdf', 'cv.pdf', (err) => {
             if (err) console.error('Error sending PDF:', err);

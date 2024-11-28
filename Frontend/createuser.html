@@ -50,18 +50,5 @@
 
     <p>Already have an account? <a href="login.html">Login here</a>.</p>
 </div>
-
-<script>
-    // Basic form validation
-    document.querySelector('.register-form').addEventListener('submit', function (e) {
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-
-        if (password !== confirmPassword) {
-            e.preventDefault();
-            alert('Passwords do not match. Please try again.');
-        }
-    });
-</script>
 </body>
 </html>
