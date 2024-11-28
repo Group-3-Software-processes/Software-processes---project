@@ -364,6 +364,13 @@ fieldset legend {
   margin-bottom: 10px;
 }
 
+/* Left-aligned Legend for Homepage */
+#homepage fieldset legend {
+  text-align: left; /* Left-align only on the homepage */
+  font-size: 1.2em; /* Smaller font size */
+  font-weight: normal; /* Remove bold styling */
+}
+
 
 /* Style for the list */
 .team-list {

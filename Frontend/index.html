@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="output.css">
     <title>CV Generator</title>
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
 
-<body>
+<body id="homepage"> <!-- Add id="homepage" here -->
 <!--  Header section for the top bar -->
 <header>
     <h1>CV Generator</h1>
 </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="information.html">About us</a></li>
-            <li><a href="saves.html">My saved CV's</a></li>
-            <li id ="li2"><a href="login.html">Go Pro</a></li>
-            <li><img src="assets/icon.png" style="width:30px;height: 30px;;"></li>
-        </ul>
-    </nav>
-        <!-- Single Form for All Sections -->
-    <form action="/api/generate" method="POST" class="cv-form">
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="information.html">About us</a></li>
+        <li><a href="saves.html">My saved CV's</a></li>
+        <li id ="li2"><a href="login.html">Go Pro</a></li>
+        <li><img src="assets/icon.png" style="width:30px;height: 30px;"></li>
+    </ul>
+</nav>
+<!-- Single Form for All Sections -->
+<form action="/api/generate" method="POST" class="cv-form">
         
         <fieldset>
             <legend>Name</legend>
