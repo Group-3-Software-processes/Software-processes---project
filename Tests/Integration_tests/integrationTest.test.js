@@ -3,7 +3,7 @@ const { JSDOM } = require('jsdom');
 const fs = require('fs');
 const path = require('path');
 const request = require('supertest');
-import app from '../../Backend/server.js';
+import { app } from '../../Backend/server.js';
 
 describe('CV Generator Website', () => {
     let dom;
