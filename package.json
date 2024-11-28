@@ -4,7 +4,8 @@
   "description": "",
   "main": "Frontend/index.html",
   "scripts": {
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "start": "node Backend/server.js"
   },
   "dependencies": {
     "axios": "^1.7.8",

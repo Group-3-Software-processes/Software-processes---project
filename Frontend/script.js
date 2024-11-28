@@ -45,6 +45,27 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 console.log("No picture uploaded.");
             }
+            const formData = new FormData(form);
+
+
+        // Add skills and education dynamically to the FormData
+        skills.forEach(skill => formData.append('skills[]', skill));
+        education.forEach(edu => formData.append('education[]', edu));
+
+        fetch('http://127.0.0.1:3000/api/generate', {
+            method: 'POST',
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.blob();
+            })
+            .catch((error) => {
+                console.error('Error generating CV:', error);
+                alert('An error occurred while generating your CV. Please try again.');
+            });
         });
 
 
@@ -116,44 +137,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Form submission handler
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent default form submission
-
-        const formData = new FormData(form);
-
-        // Process dynamic fields (e.g., skills, education)
-        const skills = Array.from(document.querySelectorAll('input[name^="skill"]')).map(input => input.value);
-        const education = Array.from(document.querySelectorAll('input[name^="education"]')).map(input => input.value);
-
-        // Add skills and education dynamically to the FormData
-        skills.forEach(skill => formData.append('skills[]', skill));
-        education.forEach(edu => formData.append('education[]', edu));
-
-        fetch('http://127.0.0.1:5000/generate_cv', {
-            method: 'POST',
-            body: formData,
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.blob();
-            })
-            .then((blob) => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = 'cv.tex';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch((error) => {
-                console.error('Error generating CV:', error);
-                alert('An error occurred while generating your CV. Please try again.');
-            });
-    });
 
 
     const buttons = document.querySelectorAll('.template-item button');
