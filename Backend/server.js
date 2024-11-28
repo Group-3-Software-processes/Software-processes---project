@@ -39,7 +39,7 @@ db.connect((err) => {
 */
 // Function to generate LaTeX file
 const generateLatexFile = async(data, outputFile) => {
-    let template = await readFile('./Template1.tex', 'utf8');
+    let template = await readFile('templates/template2/template2.tex', 'utf8');
 
     // Replace placeholders with actual data
     template = template.replace('<NAME>', data.name || 'N/A')
@@ -66,6 +66,8 @@ const generateLatexFile = async(data, outputFile) => {
     writeFile(outputFile, template);
     console.log(`LaTeX file generated: ${outputFile}`);
 };
+const texFilePath = '/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex';
+const outputDir = '/output';
 
 // POST route to generate CV
 app.post('/api/generate', (req, res) => {
@@ -84,7 +86,7 @@ app.post('/api/generate', (req, res) => {
         picturePath,
     } = req.body;
 
-    const outputFile = 'cv.tex';
+    const outputFile = 'output/CV.tex';
 
     // Call the function to generate LaTeX
     generateLatexFile({
@@ -104,7 +106,8 @@ app.post('/api/generate', (req, res) => {
 
     // Compile LaTeX to PDF
 
-    exec(`pdflatex -output-directory=/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output /home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex`, {timeout: 10000}, (err, stdout, stderr) => {
+    exec(`pdflatex -output-directory=/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output /home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex
+`, (err, stdout, stderr) => {
 
         if (err) {
             console.error('Error compiling LaTeX:', stderr);
