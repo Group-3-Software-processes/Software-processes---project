@@ -4,7 +4,8 @@
   "description": "",
   "main": "Frontend/index.html",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node Backend/server.js"
   },
   "dependencies": {
     "body-parser": "^1.20.3",

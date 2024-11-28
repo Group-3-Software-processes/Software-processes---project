@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output.css">
+    <title>Create Account - Go Pro</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>CV Generator - Create Account</h1>
+</header>
+
+<!-- Navigation -->
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="information.html">About us</a></li>
+        <li><a href="saves.html">My saved CV's</a></li>
+        <li id="li2"><a href="login.html">Go Pro</a></li>
+    </ul>
+</nav>
+
+<!-- Create Account Form -->
+<div class="register-container">
+    <form action="/api/register" method="POST" class="register-form">
+        <fieldset>
+            <legend>Create Account</legend>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="confirm-password" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="submit" class="form-button">Create Account</button>
+        </fieldset>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login here</a>.</p>
+</div>
+</body>
+</html>

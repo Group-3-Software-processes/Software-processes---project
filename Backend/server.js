@@ -15,6 +15,20 @@ const db = createConnection({
     database: 'UserProfileDB',
 });
 
+// May need to be changed
+// Basic form validation
+/*
+document.querySelector('.register-form').addEventListener('submit', function (e) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Passwords do not match. Please try again.');
+    }
+});
+*/
+/*
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err);
@@ -22,10 +36,10 @@ db.connect((err) => {
     }
     console.log('Connected to the MySQL database!');
 });
-
+*/
 // Function to generate LaTeX file
 const generateLatexFile = async(data, outputFile) => {
-    let template = await readFile('./Template1.tex', 'utf8');
+    let template = await readFile('templates/template2/template2.tex', 'utf8');
 
     // Replace placeholders with actual data
     template = template.replace('<NAME>', data.name || 'N/A')
@@ -52,6 +66,8 @@ const generateLatexFile = async(data, outputFile) => {
     writeFile(outputFile, template);
     console.log(`LaTeX file generated: ${outputFile}`);
 };
+const texFilePath = '/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex';
+const outputDir = '/output';
 
 // POST route to generate CV
 app.post('/api/generate', (req, res) => {
@@ -70,7 +86,7 @@ app.post('/api/generate', (req, res) => {
         picturePath,
     } = req.body;
 
-    const outputFile = 'cv.tex';
+    const outputFile = 'output/CV.tex';
 
     // Call the function to generate LaTeX
     generateLatexFile({
@@ -90,20 +106,17 @@ app.post('/api/generate', (req, res) => {
 
     // Compile LaTeX to PDF
 
-    exec(`pdflatex ${outputFile}`, (err, stdout, stderr) => {
+    exec(`pdflatex -output-directory=/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output /home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex
+`, (err, stdout, stderr) => {
+
         if (err) {
             console.error('Error compiling LaTeX:', stderr);
             return res.status(500).send('Error generating CV.');
         }
         console.log('LaTeX compilation output:', stdout);
         // Send the generated PDF to the client
-        res.download('cv.pdf', 'cv.pdf', (err) => {
+        res.download('output/CV.pdf', 'output/CV.pdf', (err) => {
             if (err) console.error('Error sending PDF:', err);
-        });
-
-        // Optional: Clean up intermediate files
-        exec(`rm ${outputFile} cv.log cv.aux`, (cleanupErr) => {
-            if (cleanupErr) console.error('Error cleaning up files:', cleanupErr);
         });
     });
 });

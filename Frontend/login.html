@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output.css">
+    <title>Login - Go Pro</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>CV Generator - Go Pro login</h1>
+</header>
+
+<!-- Navigation -->
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="information.html">About us</a></li>
+        <li><a href="saves.html">My saved CV's</a></li>
+        <li id="li2"><a href="login.html">Go Pro</a></li>
+    </ul>
+</nav>
+
+<!-- Login Form -->
+<div class="login-container">
+    <form action="/api/login" method="POST" class="login-form">
+        <fieldset>
+            <legend>Login</legend>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="form-button">Login</button>
+        </fieldset>
+    </form>
+
+    <p class="signup-text">Don't have an account? <a href="createuser.html" class="signup-link">Sign up <span class="highlight">here</span></a>.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
