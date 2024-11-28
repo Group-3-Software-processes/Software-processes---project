@@ -497,18 +497,6 @@
 \definecolor{bgcol2}{RGB}{105,130,110}
 
 
-%============================================================================%
-%
-%
-%	DEFINITIONS
-%
-%
-%============================================================================%
-
-%----------------------------------------------------------------------------------------
-% 	HEADER
-%----------------------------------------------------------------------------------------
-
 % remove top header line
 \renewcommand{\headrulewidth}{0pt} 
 
@@ -521,28 +509,18 @@
 %remove section num		
 \renewcommand{\thesection}{}			
 
-%----------------------------------------------------------------------------------------
-% 	ARROW GRAPHICS in Tikz
-%----------------------------------------------------------------------------------------
 
-% a six pointed arrow poiting to the left
 \newcommand{\tzlarrow}{(0,0) -- (0.2,0) -- (0.3,0.2) -- (0.2,0.4) -- (0,0.4) -- (0.1,0.2) -- cycle;}	
 
-% include the left arrow into a tikz picture
-% param1: fill color
-%
 \newcommand{\larrow}[1]
 {\begin{tikzpicture}[scale=0.58]
 	 \filldraw[fill=#1!100,draw=#1!100!black]  \tzlarrow
  \end{tikzpicture}
 }
 
-% a six pointed arrow poiting to the right
 \newcommand{\tzrarrow}{ (0,0.2) -- (0.1,0) -- (0.3,0) -- (0.2,0.2) -- (0.3,0.4) -- (0.1,0.4) -- cycle;}
 
-% include the right arrow into a tikz picture
-% param1: fill color
-%
+
 \newcommand{\rarrow}
 {\begin{tikzpicture}[scale=0.7]
 	\filldraw[fill=sectcol!100,draw=sectcol!100!black] \tzrarrow
@@ -550,14 +528,6 @@
 }
 
 
-
-%----------------------------------------------------------------------------------------
-%	custom sections
-%----------------------------------------------------------------------------------------
-
-% create a coloured box with arrow and title as cv section headline
-% param 1: section title
-%
 \newcommand{\cvsection}[1]
 {
 \colorbox{sectcol}{\mystrut \makebox[1\linewidth][l]{
@@ -565,9 +535,6 @@
 }}\\
 }
 
-%create a coloured arrow with title as cv meta section section
-% param 1: meta section title
-%
 \newcommand{\metasection}[2]
 {
 \begin{tabular*}{1\textwidth}{p{2.4cm} p{11cm}}
@@ -575,18 +542,7 @@
 \end{tabular*}
 }
 
-%----------------------------------------------------------------------------------------
-%	 CV EVENT
-%----------------------------------------------------------------------------------------
 
-% creates a stretched box as cv entry headline followed by two paragraphs about 
-% the work you did
-% param 1:	event time i.e. 2014 or 2011-2014 etc.
-% param 2:	event name (what did you do?)
-% param 3:	institution (where did you work / study)
-% param 4:	what was your position
-% param 5:	some words about your contributions
-%
 \newcommand{\cvevent}[5]
 {
 \vspace{8pt}
@@ -663,52 +619,22 @@
 	#2
 }
 
-%----------------------------------------------------------------------------------------
-% CUSTOM STRUT FOR EMPTY BOXES
-%----------------------------------------- -----------------------------------------------
 \newcommand{\mystrut}{\rule[-.3\baselineskip]{0pt}{\baselineskip}}
 
-%----------------------------------------------------------------------------------------
-% CUSTOM LOREM IPSUM
-%----------------------------------------------------------------------------------------
+
 \newcommand{\lorem}
 {Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus.}
 
 
-
-%============================================================================%
-%
-%
-%
-%	DOCUMENT CONTENT
-%
-%
-%
-%============================================================================%
 \begin{document}
 
 
-%use our custom fancy header definitions
 \pagestyle{fancy}	
 
 
-%---------------------------------------------------------------------------------------
-%	TITLE HEADLINE
-%----------------------------------------------------------------------------------------
 \vspace{-20.55pt}
 
-% use this for multiple words like working titles etc.
-%\hspace{-0.25\linewidth}\colorbox{bgcol}{\makebox[1.5\linewidth][c]{\hspace{46pt}\HUGE{\textcolor{white}{\textsc{<NAME>}} } \textcolor{sectcol}{\rule[-1mm]{1mm}{0.9cm}} \parbox[b]{5cm}{   \large{ \textcolor{white}{{IT Consultant}}}\\
-% \large{ \textcolor{white}{{Resume}}}}
-%}}
-
-% use this for single words, e.g. CV or RESUME etc.
 \hspace{-0.25\linewidth}\colorbox{bgcol}{\makebox[1.5\linewidth][c]{\HUGE{\textcolor{white}{\textsc{<NAME>}} } \textcolor{sectcol}{\rule[-1mm]{1mm}{0.9cm}} \HUGE{\textcolor{white}{\textsc{Resume}} } }}
-
-
-%----------------------------------------------------------------------------------------
-%	HEADER IMAGE
-%----------------------------------------------------------------------------------------
 
 \begin{figure}[H]
 \begin{flushright}
