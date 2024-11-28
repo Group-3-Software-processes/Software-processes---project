@@ -115,13 +115,8 @@ app.post('/api/generate', (req, res) => {
         }
         console.log('LaTeX compilation output:', stdout);
         // Send the generated PDF to the client
-        res.download('cv.pdf', 'cv.pdf', (err) => {
+        res.download('output/CV.pdf', 'output/CV.pdf', (err) => {
             if (err) console.error('Error sending PDF:', err);
-        });
-
-        // Optional: Clean up intermediate files
-        exec(`rm ${outputFile} cv.log cv.aux`, (cleanupErr) => {
-            if (cleanupErr) console.error('Error cleaning up files:', cleanupErr);
         });
     });
 });
