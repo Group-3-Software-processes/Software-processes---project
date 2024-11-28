@@ -107,3 +107,39 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll('.template-item button');
+    let selectedTemplate = null;
+  
+    buttons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Remove the 'selected' class from all buttons
+        buttons.forEach(btn => btn.classList.remove('selected'));
+  
+        // Add the 'selected' class to the clicked button
+        this.classList.add('selected');
+  
+        // Store the template number in the selectedTemplate variable
+        selectedTemplate = this.getAttribute('data-template');
+  
+        // Log the selection for confirmation
+        console.log(`Selected template: ${selectedTemplate}`);
+      });
+    });
+  
+    // Optional: Add a hidden input to the form to submit the selected template
+    const form = document.querySelector('.cv-form');
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'selectedTemplate';
+    form.appendChild(hiddenInput);
+  
+    // Update the hidden input value when a template is selected
+    buttons.forEach(button => {
+      button.addEventListener('click', function () {
+        hiddenInput.value = selectedTemplate;
+      });
+    });
+  });
+  
