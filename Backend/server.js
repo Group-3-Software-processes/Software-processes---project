@@ -17,6 +17,7 @@ const db = createConnection({
 
 // May need to be changed
 // Basic form validation
+/*
 document.querySelector('.register-form').addEventListener('submit', function (e) {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
@@ -26,7 +27,8 @@ document.querySelector('.register-form').addEventListener('submit', function (e)
         alert('Passwords do not match. Please try again.');
     }
 });
-
+*/
+/*
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err);
@@ -34,7 +36,7 @@ db.connect((err) => {
     }
     console.log('Connected to the MySQL database!');
 });
-
+*/
 // Function to generate LaTeX file
 const generateLatexFile = async(data, outputFile) => {
     let template = await readFile('./Template1.tex', 'utf8');
@@ -102,7 +104,8 @@ app.post('/api/generate', (req, res) => {
 
     // Compile LaTeX to PDF
 
-    exec(`pdflatex ${outputFile}`, (err, stdout, stderr) => {
+    exec(`pdflatex -output-directory=/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output /home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex`, {timeout: 10000}, (err, stdout, stderr) => {
+
         if (err) {
             console.error('Error compiling LaTeX:', stderr);
             return res.status(500).send('Error generating CV.');
