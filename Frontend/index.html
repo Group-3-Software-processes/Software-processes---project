@@ -1,100 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="output.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="output.css" />
     <title>CV Generator</title>
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-</head>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  </head>
 
-<body>
-<!--  Header section for the top bar -->
-<header>
-    <h1>CV Generator</h1>
-</header>
+  <body>
+    <!--  Header section for the top bar -->
+    <header>
+      <h1>CV Generator</h1>
+    </header>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="information.html">About me</a></li>
-            <li><a href="saves.html">My saved CV's</a></li>
-            <li id ="li2"><a href="pro.html">Go Pro</a></li>
-            <li><img src="assets/icon.png" style="width:30px;height: 30px;;"></li>
-        </ul>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="information.html">About me</a></li>
+        <li><a href="saves.html">My saved CV's</a></li>
+        <li id="li2"><a href="pro.html">Go Pro</a></li>
+        <li><img src="assets/icon.png" style="width: 30px; height: 30px" /></li>
+      </ul>
     </nav>
-        <!-- Single Form for All Sections -->
+    <!-- Single Form for All Sections -->
     <form action="/api/generate" method="POST" class="cv-form">
         <fieldset>
-            <legend>Name</legend>
-            <input type="text" name="name" placeholder="Your Name"  />
-        </fieldset>
-
-        <fieldset>
-            <legend>Email</legend>
-            <input type="email" name="email" placeholder="Your email"  />
-        </fieldset>
-
-        <fieldset>
-            <legend>Number</legend>
-            <input type="number" name="phone" placeholder="Your phone"  />
-        </fieldset>
-
-        <fieldset>
-            <legend>Faceshot</legend>
-            <input type="file" name="picture" placeholder="Input your picture"  accept=".png, .jpg, .jpeg" />
-        </fieldset>
-
-        <fieldset>
-            <legend>Address</legend>
-            <input type="text" name="address" placeholder="Your address"  />
-        </fieldset>
-
-        <fieldset>
-            <legend>LinkedIn</legend>
-            <input type="url" name="linkedin" placeholder="Link to your LinkedIn Profile"  />
-        </fieldset>
-
-        <fieldset>
-            <legend>GitHub</legend>
-            <input type="url" name="github" placeholder="Link to your GitHub Profile"  />
-        </fieldset>
-
-        <fieldset>
-            <legend>Education</legend>
-            <div id="education-container">
-                <input name="education1" id="education1" placeholder="Education" required>
-                <button type="button" id="addEducationButton">+</button>
-                <button type="button" id="removeEducationButton">-</button>
+          <legend>Templates</legend>
+          <div class="template-container">
+            <div class="template-item">
+              <embed
+                src="../Templates/Template2/Template2.pdf"
+                type="application/pdf"
+                width="150px"
+              />
+              <button type="button" data-template="1">Select</button>
             </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Occupation</legend>
-            <textarea name="occupation1" placeholder="Occupation" rows="3" ></textarea>
-        </fieldset>
-
-        <fieldset>
-            <legend>Experience</legend>
-            <textarea name="experience" placeholder="Experience" rows="3"></textarea>
-        </fieldset>
-
-        <fieldset>
-            <legend>Skills</legend>
-            <div id="skills-container">
-                <input name="skill1" id="skill1" placeholder="Skill" required>
-                <button type="button" id="addSkillButton">+</button>
-                <button type="button" id="removeSkillButton">-</button>
+            <div class="template-item">
+              <embed
+                src="../Templates/Template2/Template2.pdf"
+                type="application/pdf"
+                width="150px"
+              />
+              <button type="button" data-template="2">Select</button>
             </div>
-        </fieldset>
+            <div class="template-item">
+              <embed
+                src="../Templates/Template2/Template2.pdf"
+                type="application/pdf"
+                width="150px"
+              />
+              <button type="button" data-template="3">Select</button>
+            </div>
+          </div>
+        </fieldset>      
 
-        <fieldset>
-            <legend>About Me</legend>
-            <textarea name="about" placeholder="Tell us about yourself" rows="4" ></textarea>
-        </fieldset>
+      <fieldset>
+        <legend>Name</legend>
+        <input type="text" name="name" placeholder="Your Name" />
+      </fieldset>
 
-        <button type="submit">Generate CV</button>
+      <fieldset>
+        <legend>Email</legend>
+        <input type="email" name="email" placeholder="Your email" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Number</legend>
+        <input type="number" name="phone" placeholder="Your phone" />
+      </fieldset>
+
+      <fieldset>
+        <legend>Faceshot</legend>
+        <input
+          type="file"
+          name="picture"
+          placeholder="Input your picture"
+          accept=".png, .jpg, .jpeg"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend>Address</legend>
+        <input type="text" name="address" placeholder="Your address" />
+      </fieldset>
+
+      <fieldset>
+        <legend>LinkedIn</legend>
+        <input
+          type="url"
+          name="linkedin"
+          placeholder="Link to your LinkedIn Profile"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend>GitHub</legend>
+        <input
+          type="url"
+          name="github"
+          placeholder="Link to your GitHub Profile"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend>Education</legend>
+        <div id="education-container">
+          <input
+            name="education1"
+            id="education1"
+            placeholder="Education"
+            required
+          />
+          <button type="button" id="addEducationButton">+</button>
+          <button type="button" id="removeEducationButton">-</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Occupation</legend>
+        <textarea
+          name="occupation1"
+          placeholder="Occupation"
+          rows="3"
+        ></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Experience</legend>
+        <textarea
+          name="experience"
+          placeholder="Experience"
+          rows="3"
+        ></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Skills</legend>
+        <div id="skills-container">
+          <input name="skill1" id="skill1" placeholder="Skill" required />
+          <button type="button" id="addSkillButton">+</button>
+          <button type="button" id="removeSkillButton">-</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>About Me</legend>
+        <textarea
+          name="about"
+          placeholder="Tell us about yourself"
+          rows="4"
+        ></textarea>
+      </fieldset>
+
+      <button type="submit">Generate CV</button>
     </form>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
