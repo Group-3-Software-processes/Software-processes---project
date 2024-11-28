@@ -1,4 +1,4 @@
-DROP DATABASE UserProfileDB;
+
 CREATE DATABASE UserProfileDB;
 
 Use UserProfileDB;
