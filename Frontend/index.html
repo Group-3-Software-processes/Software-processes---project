@@ -21,37 +21,46 @@
         <li><img src="assets/icon.png" style="width:30px;height: 30px;"></li>
     </ul>
 </nav>
+
 <!-- Single Form for All Sections -->
 <form action="/api/generate" method="POST" class="cv-form">
-        <fieldset>
-          <legend>Templates</legend>
-          <div class="template-container">
+    <fieldset>
+        <legend>Templates</legend>
+        <div class="template-container">
             <div class="template-item">
-              <embed
-                src="../Frontend/assets/Templat2.pdf"
-                type="application/pdf"
-                width="150px"
-              />
-              <button type="button" data-template="1">Select</button>
+                <object
+                    data="../Frontend/assets/Templat2.pdf"
+                    type="application/pdf"
+                    width="150px"
+                    height="200px">
+                    <p>Your browser does not support embedded PDFs. <a href="../Frontend/assets/Templat2.pdf">Download the PDF</a></p>
+                </object>
+                <button type="button" data-template="1">Select</button>
             </div>
             <div class="template-item">
-              <embed
-              src="../Frontend/assets/Templat2.pdf"
-              type="application/pdf"
-                width="150px"
-              />
-              <button type="button" data-template="2">Select</button>
+                <object
+                    data="../Frontend/assets/Templat2.pdf"
+                    type="application/pdf"
+                    width="150px"
+                    height="200px">
+                    <p>Your browser does not support embedded PDFs. <a href="../Frontend/assets/Templat2.pdf">Download the PDF</a></p>
+                </object>
+                <button type="button" data-template="2">Select</button>
             </div>
             <div class="template-item">
-              <embed
-              src="../Frontend/assets/Templat2.pdf"
-              type="application/pdf"
-                width="150px"
-              />
-              <button type="button" data-template="3">Select</button>
+                <object
+                    data="../Frontend/assets/Templat2.pdf"
+                    type="application/pdf"
+                    width="150px"
+                    height="200px">
+                    <p>Your browser does not support embedded PDFs. <a href="../Frontend/assets/Templat2.pdf">Download the PDF</a></p>
+                </object>
+                <button type="button" data-template="3">Select</button>
             </div>
-          </div>
-        </fieldset>      
+        </div>
+    </fieldset>
+</form>
+   
 
       <fieldset>
         <legend>Name</legend>
