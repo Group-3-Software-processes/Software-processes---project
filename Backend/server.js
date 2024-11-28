@@ -2,41 +2,16 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { readFile, writeFile } from 'fs/promises';
 import { exec } from 'child_process';
-import { createConnection } from 'mysql2';
 
+
+//Own imports
+import database from './Database/database';
+
+//Setup
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MySQL database connection
-const db = createConnection({
-    host: 'localhost',
-    user: 'cv_user',
-    password: 'andreas04',
-    database: 'UserProfileDB',
-});
 
-// May need to be changed
-// Basic form validation
-/*
-document.querySelector('.register-form').addEventListener('submit', function (e) {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-    if (password !== confirmPassword) {
-        e.preventDefault();
-        alert('Passwords do not match. Please try again.');
-    }
-});
-*/
-/*
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
-    }
-    console.log('Connected to the MySQL database!');
-});
-*/
 // Function to generate LaTeX file
 const generateLatexFile = async(data, outputFile) => {
     let template = await readFile('templates/template2/template2.tex', 'utf8');
@@ -66,8 +41,6 @@ const generateLatexFile = async(data, outputFile) => {
     writeFile(outputFile, template);
     console.log(`LaTeX file generated: ${outputFile}`);
 };
-const texFilePath = '/home/madpakken/02369_Software_processes_and_patterns/Software-processes---project/output/CV.tex';
-const outputDir = '/output';
 
 // POST route to generate CV
 app.post('/api/generate', (req, res) => {
@@ -123,3 +96,4 @@ app.post('/api/generate', (req, res) => {
 
 // Start server
 app.listen(3000, () => console.log('Server running on port 3000'));
+database.initDB();
