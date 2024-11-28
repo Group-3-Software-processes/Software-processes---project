@@ -448,3 +448,29 @@ embed {
   margin-bottom: 10px; /* Adds space between the embed and the button */
 }
 
+
+/* Style for the "here" link on login and create account pages */
+.signup-link span.highlight {
+  color: #2c6e49; /* Green color for "here" */
+  font-weight: bold; /* Make it stand out */
+  text-decoration: underline; /* Optional: underline for emphasis */
+}
+
+.signup-link span.highlight:hover {
+  color: #4e9a6f; /* Slightly darker green on hover */
+}
+
+/* Center container for login and create account pages */
+.login-container,
+.register-container {
+  width: 100%;
+  max-width: 600px; /* Limit width to match the About Us page */
+  margin: 20px auto; /* Center horizontally */
+  padding: 20px; /* Add padding for better spacing */
+  background-color: #f9f9f9; /* Light gray background */
+  border: 1px solid #ccc; /* Match About Us border */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  text-align: center; /* Center-align the text inside */
+}
+
