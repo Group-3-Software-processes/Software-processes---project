@@ -5,7 +5,7 @@ import { exec } from 'child_process';
 
 
 //Own imports
-import database from './Database/database';
+import {initDB, createDB} from './Database/database.js';
 
 //Setup
 const app = express();
@@ -96,4 +96,15 @@ app.post('/api/generate', (req, res) => {
 
 // Start server
 app.listen(3000, () => console.log('Server running on port 3000'));
-database.initDB();
+const connection = initDB();
+const dbName = "UserProfileDB";
+const sqlFilePath = 'Backend/Database/createdb.sql';
+createDB(connection, dbName, sqlFilePath)
+    .then(() => {
+        console.log('Database setup completed successfully.');
+        connection.end(); // Close the connection after the setup
+    })
+    .catch(err => {
+        console.error('Error during database setup:', err);
+        connection.end(); // Close the connection in case of an error
+    });

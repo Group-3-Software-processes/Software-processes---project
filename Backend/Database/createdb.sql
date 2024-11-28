@@ -1,10 +1,11 @@
+DROP DATABASE UserProfileDB;
 CREATE DATABASE UserProfileDB;
 
-USE UserProfileDB;
+Use UserProfileDB;
 
 CREATE TABLE UserProfiles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100),
     email VARCHAR(100) NOT NULL UNIQUE,
     phone_number VARCHAR(20),
     faceshot BLOB,  -- Use a BLOB to store binary data for an image file

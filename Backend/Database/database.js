@@ -1,36 +1,19 @@
+// Imports
 import fs from 'fs';
-import mysql2 from 'mysql2';
+import mysql from 'mysql2';
+import bcrypt from 'bcrypt';
 
-document.querySelector('.register-form').addEventListener('submit', function (e) {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-    if (password !== confirmPassword) {
-        e.preventDefault();
-        alert('Passwords do not match. Please try again.');
-    }
-});
-
-
-
-
-
-app.post('/api/register', (req, res)=> {
-    
-
-
-
-});
-function initDB() {
-    return db = createConnection({
+// Function to initialize the database connection
+export function initDB() {
+    return mysql.createConnection({
         host: 'localhost',
         user: 'cv_user',
         password: 'andreas04',
-        database: 'UserProfileDB',
     });
 }
 
-function CreateDB(connection, dbName, sqlFilePath) {
+// Function to create a database if it does not exist
+export function createDB(connection, dbName, sqlFilePath) {
     return new Promise((resolve, reject) => {
         // Check if the database already exists
         connection.query(`SHOW DATABASES LIKE '${dbName}'`, (err, results) => {
@@ -67,5 +50,66 @@ function CreateDB(connection, dbName, sqlFilePath) {
 }
 
 
+// Function to add a user (name and password only)
+export function addUser(connection, email, password) {
+    return new Promise((resolve, reject) => {
+        // Hash the password before storing it
+        bcrypt.hash(password, 10, (err, hashedPassword) => {
+            if (err) {
+                reject('Error hashing password: ' + err);
+                return;
+            }
 
-module.exports = { initDB, createDB };
+            const query = `INSERT INTO UserProfiles (email, password) VALUES (?, ?, ?)`;
+            connection.query(query, [email, hashedPassword], (err, results) => {
+                if (err) {
+                    reject('Error inserting user: ' + err);
+                    return;
+                }
+                console.log(`User '${name}' added successfully.`);
+                resolve(results);
+            });
+        });
+    });
+}
+
+// Function to update user profile information
+export function addUserDetails(connection, userId, details) {
+    return new Promise((resolve, reject) => {
+        const query = `
+            UPDATE UserProfiles SET
+                phone_number = ?, 
+                faceshot = ?, 
+                address = ?, 
+                linkedin_profile = ?, 
+                github_profile = ?, 
+                education = ?, 
+                occupation = ?, 
+                experience = ?, 
+                skills = ?, 
+                about_me = ?
+            WHERE id = ?
+        `;
+        
+        connection.query(query, [
+            details.phone_number,
+            details.faceshot, // Should be a Buffer or Blob if storing binary data
+            details.address,
+            details.linkedin_profile,
+            details.github_profile,
+            details.education,
+            details.occupation,
+            details.experience,
+            details.skills,
+            details.about_me,
+            userId
+        ], (err, results) => {
+            if (err) {
+                reject('Error updating user details: ' + err);
+                return;
+            }
+            console.log(`User details for '${userId}' updated successfully.`);
+            resolve(results);
+        });
+    });
+}

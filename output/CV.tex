@@ -1,0 +1,124 @@
+\documentclass{letter}
+\usepackage{wallpaper}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage[none]{hyphenat}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\geometry{
+  paperwidth=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax,
+  paperheight=\dimexpr\textheight+\footskip\relax,
+  left=20pt,
+  right=20pt,
+  top=0pt,
+  bottom=0pt,
+  nohead,
+  nofoot,
+  nomarginpar
+}
+
+\ThisCenterWallPaper{1.5}{template2.png}
+
+\begin{document}
+
+\begin{minipage}[t]{0.40\textwidth}
+\setlength{\baselineskip}{1.5\baselineskip}
+\color{white}
+\vspace{1cm}
+
+\includegraphics[width=70pt, height=70pt]{FaceShot.png}
+
+{\large Personal info}
+
+\rule{\linewidth}{0.4pt}
+
+\faPhone \quad Number
+
+
+\faEnvelope \quad \href{somelink.com}{Email}
+
+
+\faMapMarker \quad Adresse
+
+\rule{\linewidth}{0.4pt}
+
+{\large Links}
+
+\faCode \quad \href{google.com}{Linkedin}
+
+\faGithub \quad \href{github.com}{Github}
+
+\rule{\linewidth}{0.4pt}
+
+{\large Skills}
+
+\faCircleNotch \quad Skill1
+
+\faCircleNotch \quad Skill2
+
+
+\rule{\linewidth}{0.4pt}
+
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.60\textwidth}
+\setlength{\baselineskip}{1.5\baselineskip}
+\vspace{0.8cm}
+{\huge Name}
+
+{\large Resume}
+
+\vspace{0.5cm}
+ 
+About me
+
+\vspace{0.5cm}
+
+{\large Experience}
+\rule{\linewidth}{0.4pt}
+
+{\large \textbf{Experience1}}
+
+{\small Date}
+
+\begin{itemize}
+    \item Experience1
+\end{itemize}
+
+{\large \textbf{Experience2}}
+
+{\small Date}
+
+\begin{itemize}
+    \item Experience2
+\end{itemize}
+
+
+{\large \textbf{Experience3}}
+
+{\small Date}
+
+\begin{itemize}
+    \item Experience3
+\end{itemize}
+
+{\large Education}
+\rule{\linewidth}{0.4pt}
+
+{\large \textbf{Education1}}
+
+{\small date}
+
+{\large \textbf{Education2}}
+
+{\small date}
+
+
+\end{minipage}
+\end{document}
