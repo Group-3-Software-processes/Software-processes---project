@@ -28,7 +28,7 @@ const generateLatexFile = async(data, outputFile) => {
     let template = await readFile('./Template1.tex', 'utf8');
 
     // Replace placeholders with actual data
-    /*template = template.replace('<NAME>', data.name || 'N/A')
+    template = template.replace('<NAME>', data.name || 'N/A')
         .replace('<OCCUPATION>', data.occupation1 || 'N/A')
         .replace('<EMAIL>', data.email || 'N/A')
         .replace('<PHONE>', data.phone || 'N/A')
@@ -37,17 +37,17 @@ const generateLatexFile = async(data, outputFile) => {
         .replace('<GITHUB>', data.github || 'N/A')
         .replace('<ABOUT_ME>', data.about || 'N/A')
         .replace('<EXPERIENCE>', data.experience || 'N/A');
-    */
+    
     // Handle dynamic lists for education and skills
     const educationList = (data.education1 || []).map(item => `    \\item ${item}`).join('\n');
     const skillsList = (data.skill1 || []).map(skill => `    \\item ${skill}`).join('\n');
-    /*
+    
     template = template.replace('<EDUCATION_LIST>', educationList || '    \\item N/A')
         .replace('<SKILLS_LIST>', skillsList || '    \\item N/A');
-    */
+    
 
     // Replace picture path
-    //template = template.replace('<PICTURE_PATH>', data.picturePath || '');
+    template = template.replace('<PICTURE_PATH>', data.picturePath || '');
 
     writeFile(outputFile, template);
     console.log(`LaTeX file generated: ${outputFile}`);
