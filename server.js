@@ -69,7 +69,7 @@ app.post('/api/generate', (req, res) => {
         picturePath,
     } = req.body;
 
-    const outputFile = './output/cv.tex';
+    const outputFile = 'cv.tex';
 
     // Call the function to generate LaTeX
     generateLatexFile({
@@ -95,12 +95,12 @@ app.post('/api/generate', (req, res) => {
         }
 
         // Send the generated PDF to the client
-        res.download('./output/cv.pdf', 'cv.pdf', (err) => {
+        res.download('cv.pdf', 'cv.pdf', (err) => {
             if (err) console.error('Error sending PDF:', err);
         });
 
         // Optional: Clean up intermediate files
-        exec(`rm ${outputFile} ./output/cv.log ./output/cv.aux`, (cleanupErr) => {
+        exec(`rm ${outputFile} cv.log cv.aux`, (cleanupErr) => {
             if (cleanupErr) console.error('Error cleaning up files:', cleanupErr);
         });
     });

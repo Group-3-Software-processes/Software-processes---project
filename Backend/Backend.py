@@ -4,7 +4,7 @@ import tempfile
 
 app = Flask(__name__)
 
-@app.route('/generate_cv', methods=['POST'])
+@app.route('/api/generate', methods=['POST'])
 def generate_cv():
     try:
         # Log that the request was received
