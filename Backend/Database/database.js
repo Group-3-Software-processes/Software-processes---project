@@ -9,6 +9,7 @@ export function initDB() {
         host: 'localhost',
         user: 'cv_user',
         password: 'andreas04',
+        database: 'UserProfileDB'
     });
 }
 
@@ -51,7 +52,7 @@ export function createDB(connection, dbName, sqlFilePath) {
 
 
 // Function to add a user (name and password only)
-export function addUser(connection, email, password) {
+export function addUser(connection, name, email, password) {
     return new Promise((resolve, reject) => {
         // Hash the password before storing it
         bcrypt.hash(password, 10, (err, hashedPassword) => {
@@ -61,7 +62,7 @@ export function addUser(connection, email, password) {
             }
 
             const query = `INSERT INTO UserProfiles (email, password) VALUES (?, ?, ?)`;
-            connection.query(query, [email, hashedPassword], (err, results) => {
+            connection.query(query, [name, email, hashedPassword], (err, results) => {
                 if (err) {
                     reject('Error inserting user: ' + err);
                     return;
