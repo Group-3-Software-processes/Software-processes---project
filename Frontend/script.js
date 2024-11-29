@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementsByClassName('cv-form')[0];
 
         // Existing form submission handler
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault(); // Prevent actual form submission
     
             // Retrieve values from each input field
