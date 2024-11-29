@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!selectedTemplate) {
                 e.preventDefault(); // Prevent actual form submission
                 alert('Please select a template before generating your CV.');
+                return;
             }
             e.preventDefault(); // Prevent actual form submission
             
@@ -81,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
+            
 
 
 
