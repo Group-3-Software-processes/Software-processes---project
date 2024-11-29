@@ -152,4 +152,93 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   });
-  
+
+  //Unfinished part for using logged in state to store information and pop it into the fields for ease of use
+  /*
+  //For loading and adding to database
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Form fields
+    const nameField = document.querySelector('#name');
+    const emailField = document.querySelector('#email');
+    const phoneField = document.querySelector('#phone');
+    const addressField = document.querySelector('#address');
+    const linkedinField = document.querySelector('#linkedin');
+    const githubField = document.querySelector('#github');
+    const educationField = document.querySelector('#education1');
+    const occupationField = document.querySelector('textarea[name="occupation"]');
+    const experienceField = document.querySelector('textarea[name="experience"]');
+    const skillField = document.querySelector('#skill1');
+    const aboutField = document.querySelector('textarea[name="about"]');
+    const generateButton = document.querySelector('#generateButton');
+    const form = document.querySelector('#cvForm');
+
+    // Function to populate form fields with data from the backend
+    async function fetchCV() {
+        try {
+            const response = await fetch('/api/get-cv');
+            if (response.ok) {
+                const data = await response.json();
+
+                // Populate fields
+                nameField.value = data.name || '';
+                emailField.value = data.email || '';
+                phoneField.value = data.phone || '';
+                addressField.value = data.address || '';
+                linkedinField.value = data.linkedin || '';
+                githubField.value = data.github || '';
+                educationField.value = (data.education && data.education[0]) || '';
+                occupationField.value = data.occupation || '';
+                experienceField.value = data.experience || '';
+                skillField.value = (data.skills && data.skills[0]) || '';
+                aboutField.value = data.about || '';
+
+                // Enable Generate button if data is loaded
+                generateButton.disabled = false;
+            } else {
+                console.log('No saved CV found or not logged in yet');
+            }
+        } catch (error) {
+            console.error('Error fetching CV:', error);
+        }
+    }
+
+    // Call fetchCV on page load
+    await fetchCV();
+
+    // Event listener to handle form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        const data = {
+            name: nameField.value,
+            email: emailField.value,
+            phone: phoneField.value,
+            address: addressField.value,
+            linkedin: linkedinField.value,
+            github: githubField.value,
+            education: [educationField.value],
+            occupation: occupationField.value,
+            experience: experienceField.value,
+            skills: [skillField.value],
+            about: aboutField.value,
+        };
+
+        try {
+            const response = await fetch('/api/save-cv', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                alert('CV saved successfully!');
+            } else {
+                const errorData = await response.json();
+                alert(errorData.error || 'Failed to save CV');
+            }
+        } catch (error) {
+            console.error('Error saving CV:', error);
+        }
+    });
+});
+  */

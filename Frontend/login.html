@@ -26,7 +26,7 @@
 
 <!-- Login Form -->
 <div class="login-container">
-    <form action="/api/login" method="POST" class="login-form">
+    <form id="login-form" class="login-form">
         <fieldset>
             <legend>Login</legend>
 
@@ -45,7 +45,7 @@
             <button type="submit" class="form-button">Login</button>
         </fieldset>
     </form>
-
+    <p id="status"></p>
     <p class="signup-text">
         Don't have an account?
         <a href="createuser.html" class="signup-link">
@@ -54,6 +54,6 @@
     </p>
 </div>
 
-<script src="script.js"></script>
+<script src="loginscript.js"></script>
 </body>
 </html>

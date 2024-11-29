@@ -61,7 +61,7 @@ export function addUser(connection, name, email, password) {
                 return;
             }
 
-            const query = `INSERT INTO UserProfiles (email, password) VALUES (?, ?, ?)`;
+            const query = `INSERT INTO UserProfiles (name, email, password) VALUES (?, ?, ?)`;
             connection.query(query, [name, email, hashedPassword], (err, results) => {
                 if (err) {
                     reject('Error inserting user: ' + err);

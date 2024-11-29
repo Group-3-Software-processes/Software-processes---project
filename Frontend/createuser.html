@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="output.css">
     <title>Create Account - Go Pro</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <script src="script.js"></script>
+    <script src="createuserscript.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -39,10 +39,14 @@
 
 <!-- Create Account Form -->
 <div class="register-container">
-    <form action="/api/register" method="POST" class="register-form" id="create-user-form">
+    <form onsubmit="createUser(event)" id="create-user-form">
         <fieldset>
             <legend>Create Account</legend>
-
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter your whole name" required>
+            </div>
+            
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" placeholder="Enter your email" required>

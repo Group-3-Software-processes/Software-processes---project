@@ -1,101 +1,97 @@
-\documentclass[lighthipster]{simplehipstercv}
-% available options are: darkhipster, lighthipster, pastel, allblack, grey, verylight, withoutsidebar
-% withoutsidebar
-\usepackage[utf8]{inputenc}
-\usepackage[default]{raleway}
-\usepackage[margin=1cm, a4paper]{geometry}
+\documentclass{letter}
+\usepackage{wallpaper}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage[none]{hyphenat}
 
-\newlength{\rightcolwidth}
-\newlength{\leftcolwidth}
-\setlength{\leftcolwidth}{0.23\textwidth}
-\setlength{\rightcolwidth}{0.75\textwidth}
+\renewcommand{\familydefault}{\sfdefault}
 
-%------------------------------------------------------------------
-\title{New Simple CV}
-\author{\LaTeX{} Ninja}
-\date{June 2019}
+\geometry{
+  paperwidth=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax,
+  paperheight=\dimexpr\textheight+\footskip\relax,
+  left=20pt,
+  right=20pt,
+  top=0pt,
+  bottom=0pt,
+  nohead,
+  nofoot,
+  nomarginpar
+}
 
-\pagestyle{empty}
+\ThisCenterWallPaper{1.5}{template2.png}
+
 \begin{document}
 
-    \thispagestyle{empty}
+\begin{minipage}[t]{0.40\textwidth}
+\setlength{\baselineskip}{1.5\baselineskip}
+\color{white}
+\vspace{1cm}
 
-%-------------------------------------------------------------
-    \section*{Start}
+\includegraphics[width=70pt, height=70pt]{FaceShot.png}
 
-    \simpleheader{headercolour}{}{Andreas}{CV}{white}
+{\large Personal info}
 
-%------------------------------------------------
-    \subsection*{}
-    \vspace{4em}
+\rule{\linewidth}{0.4pt}
 
-    \setlength{\columnsep}{1.5cm}
-    \columnratio{0.23}[0.75]
-    \begin{paracol}{2}
-        \hbadness5000
-
-        % Side Column
-        \footnotesize
-        {\setasidefontcolour
-        \flushright
-            \begin{center}
-                \roundpic{FaceShot.png}
-            \end{center}
+\faPhone \quad 23
 
 
-            \bg{cvgreen}{white}{12345678} \\[0.5em]
-            \bigskip
-            \bg{cvgreen}{white}{andreas.brun.jensen@gmail.com} \\[0.5em]
-            \bigskip
-            \bg{cvgreen}{white}{dtuvej 36} \\[0.5em]
-            \bigskip
-
-        }
-
-        %-----------------------------------------------------------
-        \switchcolumn
-
-        % Main Column
-        \small
-        \section*{About me}
-        \begin{itemize}
-            \item \textbf{Student from denmark, with lots of skills. Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum}
-        \end{itemize}
-
-        \vspace{3em}
-
-        \section*{Education}
-        \begin{itemize}
-                \item DTU
-        \end{itemize}
-
-        \section*{Experience}
-        \textbf{Internship at rapidis}
+\faEnvelope \quad aaa@gmail.com
 
 
-        \section*{Skills}
-        \begin{itemize}
-                \item Programming
-        \end{itemize}
+\faMapMarker \quad asd
 
-        \vspace{3em}
+\rule{\linewidth}{0.4pt}
 
-        \section*{Occupation}
-        \begin{itemize}
-            \item \textbf{Student}
-        \end{itemize}
+{\large Links}
 
-        \section*{Github}
-        \begin{itemize}
-            \item \textbf{https://github.com/AndreasDTU}
-        \end{itemize}
+\faCode \quad https://shorturl.at/5JIdS
 
-        \section*{LinkedIn}
-        \begin{itemize}
-            \item \textbf{https://shorturl.at/5JIdS}
-        \end{itemize}
+\faGithub \quad https://github.com/AndreasDTU
 
-        \vfill{}
-    \end{paracol}
+\rule{\linewidth}{0.4pt}
 
+{\large Skills}
+\begin{itemize}
+    \item asd
+\end{itemize}
+
+
+
+\rule{\linewidth}{0.4pt}
+
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.60\textwidth}
+\setlength{\baselineskip}{1.5\baselineskip}
+\vspace{0.8cm}
+{\huge Andreas}
+
+{\large Resume}
+
+\vspace{0.5cm}
+ 
+asd
+
+\vspace{0.5cm}
+
+{\large Experience}
+\rule{\linewidth}{0.4pt}
+
+{\large \textbf{asd}}
+
+{\large Education}
+\rule{\linewidth}{0.4pt}
+\begin{itemize}
+    \item DTU
+\end{itemize}
+
+
+
+\end{minipage}
 \end{document}
