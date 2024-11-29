@@ -1,97 +1,101 @@
-\documentclass{letter}
-\usepackage{wallpaper}
-\usepackage{geometry}
-\usepackage{xcolor}
-\usepackage[T1]{fontenc}
-\usepackage[scaled]{helvet}
-\usepackage{fontawesome5}
-\usepackage{hyperref}
-\usepackage[none]{hyphenat}
+\documentclass[lighthipster]{simplehipstercv}
+% available options are: darkhipster, lighthipster, pastel, allblack, grey, verylight, withoutsidebar
+% withoutsidebar
+\usepackage[utf8]{inputenc}
+\usepackage[default]{raleway}
+\usepackage[margin=1cm, a4paper]{geometry}
 
-\renewcommand{\familydefault}{\sfdefault}
+\newlength{\rightcolwidth}
+\newlength{\leftcolwidth}
+\setlength{\leftcolwidth}{0.23\textwidth}
+\setlength{\rightcolwidth}{0.75\textwidth}
 
-\geometry{
-  paperwidth=\dimexpr\textwidth+\marginparsep+\marginparwidth\relax,
-  paperheight=\dimexpr\textheight+\footskip\relax,
-  left=20pt,
-  right=20pt,
-  top=0pt,
-  bottom=0pt,
-  nohead,
-  nofoot,
-  nomarginpar
-}
+%------------------------------------------------------------------
+\title{New Simple CV}
+\author{\LaTeX{} Ninja}
+\date{June 2019}
 
-\ThisCenterWallPaper{1.5}{template2.png}
-
+\pagestyle{empty}
 \begin{document}
 
-\begin{minipage}[t]{0.40\textwidth}
-\setlength{\baselineskip}{1.5\baselineskip}
-\color{white}
-\vspace{1cm}
+    \thispagestyle{empty}
 
-\includegraphics[width=70pt, height=70pt]{}
+%-------------------------------------------------------------
+    \section*{Start}
 
-{\large Personal info}
+    \simpleheader{headercolour}{}{Andreas}{CV}{white}
 
-\rule{\linewidth}{0.4pt}
+%------------------------------------------------
+    \subsection*{}
+    \vspace{4em}
 
-\faPhone \quad N/A
+    \setlength{\columnsep}{1.5cm}
+    \columnratio{0.23}[0.75]
+    \begin{paracol}{2}
+        \hbadness5000
 
-
-\faEnvelope \quad <EMAIl>
-
-
-\faMapMarker \quad N/A
-
-\rule{\linewidth}{0.4pt}
-
-{\large Links}
-
-\faCode \quad N/A
-
-\faGithub \quad N/A
-
-\rule{\linewidth}{0.4pt}
-
-{\large Skills}
-
-\faCircleNotch \quad     \item N/A
-
-\faCircleNotch \quad <SKILLS_LIST>
+        % Side Column
+        \footnotesize
+        {\setasidefontcolour
+        \flushright
+            \begin{center}
+                \roundpic{FaceShot.png}
+            \end{center}
 
 
-\rule{\linewidth}{0.4pt}
+            \bg{cvgreen}{white}{12345678} \\[0.5em]
+            \bigskip
+            \bg{cvgreen}{white}{andreas.brun.jensen@gmail.com} \\[0.5em]
+            \bigskip
+            \bg{cvgreen}{white}{dtuvej 36} \\[0.5em]
+            \bigskip
+
+        }
+
+        %-----------------------------------------------------------
+        \switchcolumn
+
+        % Main Column
+        \small
+        \section*{About me}
+        \begin{itemize}
+            \item \textbf{Student from denmark, with lots of skills. Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum}
+        \end{itemize}
+
+        \vspace{3em}
+
+        \section*{Education}
+        \begin{itemize}
+                \item DTU
+        \end{itemize}
+
+        \section*{Experience}
+        \textbf{Internship at rapidis}
 
 
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.60\textwidth}
-\setlength{\baselineskip}{1.5\baselineskip}
-\vspace{0.8cm}
-{\huge N/A}
+        \section*{Skills}
+        \begin{itemize}
+                \item Programming
+        \end{itemize}
 
-{\large Resume}
+        \vspace{3em}
 
-\vspace{0.5cm}
- 
-N/A
+        \section*{Occupation}
+        \begin{itemize}
+            \item \textbf{Student}
+        \end{itemize}
 
-\vspace{0.5cm}
+        \section*{Github}
+        \begin{itemize}
+            \item \textbf{https://github.com/AndreasDTU}
+        \end{itemize}
 
-{\large Experience}
-\rule{\linewidth}{0.4pt}
+        \section*{LinkedIn}
+        \begin{itemize}
+            \item \textbf{https://shorturl.at/5JIdS}
+        \end{itemize}
 
-{\large \textbf{N/A}}
+        \vfill{}
+    \end{paracol}
 
-{\large Education}
-\rule{\linewidth}{0.4pt}
-
-{\large \textbf{    \item N/A}}
-
-{\large \textbf{<EDUCATION_LIST>}}
-
-
-\end{minipage}
 \end{document}
