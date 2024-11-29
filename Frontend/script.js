@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    // Form submission handler
 
 
     const buttons = document.querySelectorAll('.template-item button');

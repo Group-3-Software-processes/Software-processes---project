@@ -9,9 +9,8 @@ describe('CV Generator Website', () => {
     let dom;
 
     beforeAll(() => {
-        // Load the HTML file
         const html = fs.readFileSync(path.resolve(__dirname, '../../Frontend/index.html'), 'utf8');
-        dom = new JSDOM(html);
+        dom = new JSDOM(html, { runScripts: 'dangerously', resources: 'usable' });
     });
 
     test('should load the HTML content', () => {
@@ -32,74 +31,60 @@ describe('CV Generator Website', () => {
         expect(script).toBeInTheDocument();
     });
 
-    test('Should be able to add information to the name field, and submit it', () => {
-        const document = dom.window.document;
-        console.log = jest.fn(); // Mock console.log
-        // Find the input field and submit button
-        const nameField = document.querySelector('input[name="name"]'); // Adjust name attribute as per your HTML
-        const submitButton = document.querySelector('button[type="submit"]');
-        nameField.value = 'John Doe';
-        expect(nameField.value).toBe('John Doe'); // Check that the value was set correctly
 
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent form submission redirect
-            console.log(nameField.value); // Mock function call with form data
-        });
+test('Should be able to add information to all fields and submit them manually', () => {
+    const document = dom.window.document;
+    console.log = jest.fn(); // Mock console.log
 
-        submitButton.click();
-        expect(console.log).toHaveBeenCalledWith('John Doe');
+    // Define field values to test
+    const fieldValues = {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        phone: '12345678',
+        address: '123 Elm Street',
+        about: 'This is about me',
+    };
+
+    // Set field values
+    Object.keys(fieldValues).forEach((fieldName) => {
+        const field = document.querySelector(`input[name="${fieldName}"]`) || 
+                      document.querySelector(`textarea[name="${fieldName}"]`);
+        if (!field) {
+            console.error(`Field not found: ${fieldName}`);
+        } else {
+            field.value = fieldValues[fieldName];
+            field.dispatchEvent(new dom.window.Event('input')); // Simulate user typing
+            expect(field.value).toBe(fieldValues[fieldName]); // Verify value is set
+        }
     });
 
-    test('Should be able to add information to the email field, and submit it', () => {
-        const document = dom.window.document;
-        console.log = jest.fn(); // Mock console.log
-        const nameField = document.querySelector('input[name="email"]'); // Adjust name attribute as per your HTML
-        const submitButton = document.querySelector('button[type="submit"]');
-        nameField.value = 'John.doe@gmail.com';
-        expect(nameField.value).toBe('John.doe@gmail.com'); // Check that the value was set correctly
-
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent form submission redirect
-            console.log(nameField.value); // Mock function call with form data
+    // Mock the form submission handler
+    const form = document.querySelector('.cv-form');
+    const mockSubmitHandler = jest.fn((e) => {
+        e.preventDefault();
+        Object.keys(fieldValues).forEach((key) => {
+            const field = document.querySelector(`input[name="${key}"]`) || 
+                          document.querySelector(`textarea[name="${key}"]`);
+            console.log(`Submitting: ${key} = ${field?.value}`);
         });
-
-        submitButton.click();
-        expect(console.log).toHaveBeenCalledWith('John.doe@gmail.com');
     });
 
-    test('Should be able to add information to the phone field, and submit it', () => {
-        const document = dom.window.document;
-        console.log = jest.fn(); // Mock console.log
-        const nameField = document.querySelector('input[name="phone"]'); // Adjust name attribute as per your HTML
-        const submitButton = document.querySelector('button[type="submit"]');
-        nameField.value = '12345678';
-        expect(nameField.value).toBe('12345678'); // Check that the value was set correctly
+    // Add the mocked submit handler to the form
+    form.addEventListener('submit', mockSubmitHandler);
 
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent form submission redirect
-            console.log(nameField.value); // Mock function call with form data
-        });
+    // Manually call the submit event handler
+    const submitEvent = new dom.window.Event('submit', { bubbles: true, cancelable: true });
+    form.dispatchEvent(submitEvent); // Dispatch the event manually
 
-        submitButton.click();
-        expect(console.log).toHaveBeenCalledWith('12345678');
+    // Verify the mock submission handler was called
+    expect(mockSubmitHandler).toHaveBeenCalled();
+
+    // Verify the logs for each field
+    Object.values(fieldValues).forEach((value) => {
+        expect(console.log).toHaveBeenCalledWith(expect.stringContaining(value));
     });
+});
 
-    test('Should be able to add information to the Address field, and submit it', () => {
-        const document = dom.window.document;
-        console.log = jest.fn(); // Mock console.log
-        const nameField = document.querySelector('input[name="address"]'); // Adjust name attribute as per your HTML
-        const submitButton = document.querySelector('button[type="submit"]');
-        nameField.value = 'Elektrovej 36';
-        expect(nameField.value).toBe('Elektrovej 36'); // Check that the value was set correctly
-
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent form submission redirect
-            console.log(nameField.value); // Mock function call with form data
-        });
-
-        submitButton.click();
-        expect(console.log).toHaveBeenCalledWith('Elektrovej 36');
-    });
 
     test('should upload a picture file correctly', () => {
         const document = dom.window.document;
