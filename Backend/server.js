@@ -2,40 +2,45 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { readFile, writeFile } from 'fs/promises';
 import { exec } from 'child_process';
+import multer from 'multer';
+import fs from 'fs';
+import cors from 'cors';
 
 // Setup
 const app = express();
+const upload = multer({ dest: 'uploads/' });
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+function replacePlaceholders(template, data) {
+    // Iterate over each key in the data object
+    for (const [key, value] of Object.entries(data)) {
+        // Create the placeholder format dynamically (e.g., '<NAME>')
+        const placeholder = `<${key.toUpperCase()}>`;
+        console.log(placeholder);
+        // Replace all instances of the placeholder in the template
+        template = template.replace(new RegExp(placeholder, 'g'), value || 'N/A');
+    }
+    return template;
+}
 // Function to generate LaTeX file
-const generateLatexFile = async (data, outputFile) => {
+const generateLatexFile = async (template, data, outputFile) => {
+    const templatePath = `templates/template${template}.tex`;
     try {
-        const templatePath = 'templates/template2/template2.tex';
+        const educationList = (data.education || []).map(item => `    \\item ${item}`).join('\n');
+        const skillsList = (data.skills || []).map(skill => `    \\item ${skill}`).join('\n');
+        let newdata = data; 
+        newdata.education = educationList;
+        newdata.skills = skillsList;
+
         let template = await readFile(templatePath, 'utf8');
+        
+        
 
-        // Replace placeholders with actual data
-        template = template.replace('<NAME>', data.name || 'N/A')
-            .replace('<OCCUPATION>', data.occupation1 || 'N/A')
-            .replace('<EMAIL>', data.email || 'N/A')
-            .replace('<PHONE>', data.phone || 'N/A')
-            .replace('<ADDRESS>', data.address || 'N/A')
-            .replace('<LINKEDIN>', data.linkedin || 'N/A')
-            .replace('<GITHUB>', data.github || 'N/A')
-            .replace('<ABOUT_ME>', data.about || 'N/A')
-            .replace('<EXPERIENCE>', data.experience || 'N/A');
-
-        // Handle dynamic lists for education and skills
-        const educationList = (data.education1 || []).map(item => `    \\item ${item}`).join('\n');
-        const skillsList = (data.skill1 || []).map(skill => `    \\item ${skill}`).join('\n');
-
-        template = template.replace('<EDUCATION_LIST>', educationList || '    \\item N/A')
-            .replace('<SKILLS_LIST>', skillsList || '    \\item N/A');
-
-        // Replace picture path
-        template = template.replace('<PICTURE_PATH>', data.picturePath || '');
-
-        await writeFile(outputFile, template);
+        
+        await writeFile(outputFile, replacePlaceholders(template, newdata));
         console.log('LaTeX file successfully written to:', outputFile);
     } catch (err) {
         console.error('Error in generateLatexFile:', err);
@@ -44,89 +49,107 @@ const generateLatexFile = async (data, outputFile) => {
 };
 
 // POST route to generate CV
-app.post('/api/generate', async (req, res) => {
+app.post('/api/generate', upload.single('file'),  (req, res) => {
+    //For test
+    if (process.env.NODE_ENV === 'test') {
+        console.log('Mock download in test environment');
+        res.set('Content-Type', 'application/pdf');
+        return res.status(200).send('Mock PDF download successful');
+    }
 
-console.log('Received POST /api/generate request');
 
-const {
-    name = '',
-    email = '',
-    phone = '',
-    address = '',
-    occupation = '',
-    linkedin = '',
-    github = '',
-    about = '',
-    experience = '[]',
-    education = '[]',
-    skills = '[]',
-    picturePath = '',
-} = req.body;
+    //Actual function
+    console.log('Received POST /api/generate request');
 
-console.log('Parsed fields:', { name, email, phone, address, occupation, linkedin, github, about, experience, education, skills, picturePath });
-
-if (!name || !email || !phone || !address) {
-    console.error('Validation failed: Missing required fields.');
-    return res.status(500).send('Error generating CV: Missing required fields.');
-}
-
-if (process.env.NODE_ENV === 'test') {
-    console.log('Mock download in test environment');
-    res.set('Content-Type', 'application/pdf');
-    return res.status(200).send('Mock PDF download successful');
-}
-
-const outputFile = 'output/CV.tex';
-
-try {
-    console.log('Generating LaTeX file...');
-    await generateLatexFile(
-        {
-            name,
-            email,
-            phone,
-            occupation1: occupation,
-            address,
-            linkedin,
-            github,
-            about,
-            experience,
-            education1: JSON.parse(education),
-            skill1: JSON.parse(skills),
-            picturePath,
-        },
-        outputFile
-    );
-} catch (err) {
-    console.error('Error generating LaTeX file:', err);
-    return res.status(500).send('Error generating LaTeX file.');
-}
-
-exec(
-    `pdflatex -output-directory=output ${outputFile}`,
-    (err, stdout, stderr) => {
+    const {
+        selectedTemplate,
+        name,
+        email,
+        phone,
+        address,
+        linkedin,
+        github,
+        occupation,
+        experience,
+        about,
+    } = req.body;
+    console.log(req.body);
+    console.log(selectedTemplate, name, email, phone, address, linkedin, github, occupation, experience, about);
+    const education = [];
+    for (const key in req.body) {
+        if (key.startsWith('education') && req.body[key]) {
+            education.push(req.body[key]);
+        }
+    }
+    // Extract skills fields into an array
+    const skills = [];
+    for (const key in req.body) {
+        if (key.startsWith('skill') && req.body[key]) {
+            skills.push(req.body[key]);
+        }
+    }
+    const outputFile = 'output/CV.tex';
+    console.log(selectedTemplate[1]);
+    
+    
+    generateLatexFile(
+        selectedTemplate[1],{
+                name,
+                email,
+                phone,
+                address,
+                linkedin,
+                github,
+                education,
+                occupation,
+                experience,
+                skills,
+                about,
+            },outputFile);
+    console.log("Attempting to create pdf from latex file");
+    exec(`pdflatex -output-directory=output ${outputFile}`, (err, stdout, stderr) => {
+        console.log("Started process");
+    
         if (err) {
             console.error('Error compiling LaTeX:', stderr);
             return res.status(500).send('Error generating CV.');
         }
+    
         console.log('LaTeX compilation succeeded:', stdout);
-
+    
         const pdfPath = 'output/CV.pdf';
+    
         console.log('Checking for PDF file at:', pdfPath);
-
-        res.download(pdfPath, 'CV.pdf', (err) => {
-            if (err) {
-                console.error('Error sending PDF:', err);
-                return res.status(500).send('Error sending PDF.');
+    
+        // Check if the PDF file exists
+        fs.access(pdfPath, fs.constants.F_OK, (fileErr) => {
+            if (fileErr) {
+                console.error('PDF file not found:', fileErr);
+                return res.status(500).send('Generated PDF not found.');
             }
-
-            console.log('PDF sent successfully.');
+    
+            // Send the PDF file as a response
+            res.download(pdfPath, 'CV.pdf', (downloadErr) => {
+                if (downloadErr) {
+                    console.error('Error sending PDF:', downloadErr);
+                    return res.status(500).send('Error sending PDF.');
+                }
+    
+                console.log('PDF sent successfully.');
+            });
         });
-    }
-);
+    });
 });
-
+app.get('/', (req, res) => {
+    res.send('Welcome to the CV Generator API! Use POST /api/generate to create a CV.');
+});
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
 // Start server
-const server = app.listen(3000, () => console.log('Server running on port 3000'));
+const server = app.listen(3000, '0.0.0.0', () => {
+    console.log('Server running on port 3000');
+  });
 
 export { app, server };

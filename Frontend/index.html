@@ -52,6 +52,7 @@
             </div>
           </div>
         </fieldset>      
+        <input type="hidden" name="selectedTemplate" id="selectedTemplate" value="" />
 
       <fieldset>
         <legend>Name</legend>
@@ -68,15 +69,6 @@
         <input type="number" name="phone" placeholder="Your phone" />
       </fieldset>
 
-      <fieldset>
-        <legend>Faceshot</legend>
-        <input
-          type="file"
-          name="picture"
-          placeholder="Input your picture"
-          accept=".png, .jpg, .jpeg"
-        />
-      </fieldset>
 
       <fieldset>
         <legend>Address</legend>
@@ -117,7 +109,7 @@
       <fieldset>
         <legend>Occupation</legend>
         <textarea
-          name="occupation1"
+          name="occupation"
           placeholder="Occupation"
           rows="3"
         ></textarea>
@@ -150,7 +142,7 @@
         ></textarea>
       </fieldset>
 
-      <button type="submit">Generate CV</button>
+      <button id="generateButton" type="submit" disabled>Generate CV</button>
     </form>
 
     <script src="script.js"></script>
