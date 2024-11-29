@@ -27,6 +27,18 @@ app.use(session({
 
 // POST route to generate CV
 app.post('/api/generate', upload.single('file'),  (req, res) => {
+    // Error checking
+    if (
+        !req.body ||
+        !Object.keys(req.body).length || // Check if body is empty
+        !req.body.name ||
+        !req.body.email ||
+        !req.body.phone ||
+        !req.body.address
+    ) {
+        console.error('Validation failed: Missing required fields.');
+        return res.status(500).send('Error generating CV: Missing required fields.');
+    }
     //For test
     if (process.env.NODE_ENV === 'test') {
         console.log('Mock download in test environment');
