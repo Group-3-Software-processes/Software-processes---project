@@ -46,7 +46,7 @@ describe('Backend API Tests', () => {
                 skills: '[]',
                 picturePath: '/path/to/picture',
             });
-        expect(response.status).toBe(200); // Expect success
+        expect(response.status).toBe(200); 
     });
 
     afterAll((done) => {
@@ -55,12 +55,12 @@ describe('Backend API Tests', () => {
     });
 });
 
-// Frontend DOM Tests
+
 describe('Frontend DOM Tests: CV Generator Website', () => {
     let dom;
 
     beforeAll(() => {
-        // Load the HTML file
+     
         const html = fs.readFileSync(path.resolve(__dirname, '../../Frontend/index.html'), 'utf8');
         dom = new JSDOM(html);
     });
@@ -85,8 +85,8 @@ describe('Frontend DOM Tests: CV Generator Website', () => {
 
     test('Should be able to add information to the name field, and submit it', () => {
         const document = dom.window.document;
-        console.log = jest.fn(); // Mock console.log
-        const nameField = document.querySelector('input[name="name"]'); // Adjust name attribute as per your HTML
+        console.log = jest.fn(); 
+        const nameField = document.querySelector('input[name="name"]'); 
         const submitButton = document.querySelector('button[type="submit"]');
         nameField.value = 'John Doe';
         expect(nameField.value).toBe('John Doe');
@@ -131,7 +131,5 @@ describe('Frontend DOM Tests: CV Generator Website', () => {
         const submitEvent = new dom.window.Event('submit', { bubbles: true, cancelable: true });
         form.dispatchEvent(submitEvent);
     });
-
-    // Add the remaining tests for fields like LinkedIn, GitHub, About Me, etc.
-    // Tests omitted for brevity but should follow a similar structure.
+    
 });
