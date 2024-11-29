@@ -1,52 +1,81 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementsByClassName('cv-form')[0];
+    const submitButton = form.querySelector('button[type="submit"]');
 
-        // Existing form submission handler
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent actual form submission
-    
-            // Retrieve values from each input field
-            const name = form.querySelector('input[name="name"]').value;
-            const email = form.querySelector('input[name="email"]').value;
-            const phone = form.querySelector('input[name="phone"]').value;
-            const address = form.querySelector('input[name="address"]').value;
-            
-            // Retrieve all education fields
-            const education = Array.from(form.querySelectorAll('input[name^="education"]')).map(input => input.value);
-    
-            // Retrieve all skills fields
-            const skills = Array.from(form.querySelectorAll('input[name^="skill"]')).map(input => input.value);
-    
-            const experience = form.querySelector('textarea[name="experience"]').value;
-            const linkedin = form.querySelector('input[name="linkedin"]').value;
-            const github = form.querySelector('input[name="github"]').value;
-            const occupation = form.querySelector('textarea[name="occupation1"]').value;
-            const aboutMe = form.querySelector('textarea[name="about"]').value;
-    
-            // Retrieve the file and display its details
-            const fileInput = form.querySelector('input[name="picture"]');
-            const file = fileInput.files[0];
-            
-            console.log("Form Data:");
-            console.log(`Name: ${name}`);
-            console.log(`Email: ${email}`);
-            console.log(`Phone: ${phone}`);
-            console.log(`Address: ${address}`);
-            console.log(`LinkedIn: ${linkedin}`);
-            console.log(`GitHub: ${github}`);
-            console.log(`Occupation: ${occupation}`);
-            console.log(`About Me: ${aboutMe}`);
-            console.log(`Experience: ${experience}`);
-            console.log("Education:", education);
-            console.log("Skills:", skills);
-    
-            if (file) {
-                console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);
-            } else {
-                console.log("No picture uploaded.");
+    // Required fields for validation
+    const requiredFields = form.querySelectorAll('input[name="name"]');
+
+    // Function to validate the form
+    const validateForm = () => {
+        let isValid = true;
+
+        requiredFields.forEach((field) => {
+            console.log(`Validating field: ${field.name}, value: ${field.value}`); // Debugging
+            if (!field.value.trim()) {
+                isValid = false;
             }
-            const formData = new FormData(form);
+        });
 
+        submitButton.disabled = !isValid;
+        console.log('Validation result:', isValid, 'Button disabled:', submitButton.disabled); // Debugging
+    };
+
+    // Attach input event listeners to required fields
+    requiredFields.forEach((field) => {
+        field.addEventListener('input', () => {
+            console.log(`Input event triggered for ${field.name}`); // Debugging
+            validateForm();
+        });
+    });
+
+    // Run validation on page load
+    validateForm();
+
+    // Existing form submission handler
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent actual form submission
+
+        // Retrieve values from each input field
+        const name = form.querySelector('input[name="name"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const phone = form.querySelector('input[name="phone"]').value;
+        const address = form.querySelector('input[name="address"]').value;
+
+        // Retrieve all education fields
+        const education = Array.from(form.querySelectorAll('input[name^="education"]')).map(input => input.value);
+
+        // Retrieve all skills fields
+        const skills = Array.from(form.querySelectorAll('input[name^="skill"]')).map(input => input.value);
+
+        const experience = form.querySelector('textarea[name="experience"]').value;
+        const linkedin = form.querySelector('input[name="linkedin"]').value;
+        const github = form.querySelector('input[name="github"]').value;
+        const occupation = form.querySelector('textarea[name="occupation1"]').value;
+        const aboutMe = form.querySelector('textarea[name="about"]').value;
+
+        // Retrieve the file and display its details
+        const fileInput = form.querySelector('input[name="picture"]');
+        const file = fileInput.files[0];
+
+        console.log("Form Data:");
+        console.log(`Name: ${name}`);
+        console.log(`Email: ${email}`);
+        console.log(`Phone: ${phone}`);
+        console.log(`Address: ${address}`);
+        console.log(`LinkedIn: ${linkedin}`);
+        console.log(`GitHub: ${github}`);
+        console.log(`Occupation: ${occupation}`);
+        console.log(`About Me: ${aboutMe}`);
+        console.log(`Experience: ${experience}`);
+        console.log("Education:", education);
+        console.log("Skills:", skills);
+
+        if (file) {
+            console.log(`Picture: ${file.name} (${file.type}), ${file.size} bytes`);
+        } else {
+            console.log("No picture uploaded.");
+        }
+        const formData = new FormData(form);
 
         // Add skills and education dynamically to the FormData
         skills.forEach(skill => formData.append('skills[]', skill));
@@ -66,9 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error('Error generating CV:', error);
                 alert('An error occurred while generating your CV. Please try again.');
             });
-        });
-
-
+    });
 
     // Initialize counters for skills and education
     let skillsCount = 1;

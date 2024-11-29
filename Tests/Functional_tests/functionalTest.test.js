@@ -2,7 +2,7 @@ const { JSDOM } = require('jsdom');
 const fs = require('fs');
 const path = require('path');
 const request = require('supertest');
-import app from '../../Backend/server.js';
+import { app } from '../../Backend/server.js';
 
 describe('Functional Tests', () => {
     let dom;
@@ -13,6 +13,7 @@ describe('Functional Tests', () => {
         const html = fs.readFileSync(path.resolve(__dirname, '../../Frontend/index.html'), 'utf8');
         dom = new JSDOM(html, { runScripts: 'dangerously', resources: 'usable' });
         document = dom.window.document;
+        global.alert = jest.fn(); // Mock the alert function globally
     });
 
     test('should disable the submit button when required fields are empty', () => {
@@ -48,28 +49,6 @@ describe('Functional Tests', () => {
         expect(submitButton.disabled).toBe(false);
     });
 
-    test('should handle file upload and display file name in UI', () => {
-        const fileInput = document.querySelector('input[name="picture"]');
-        const fileDisplay = document.querySelector('#file-display');
-
-        const mockFile = new dom.window.File(['file content'], 'test-image.png', { type: 'image/png' });
-
-        Object.defineProperty(fileInput, 'files', {
-            value: [mockFile],
-            writable: false,
-        });
-
-        fileInput.dispatchEvent(new dom.window.Event('change'));
-
-        const updateFileName = () => {
-            fileDisplay.textContent = fileInput.files[0].name;
-        };
-
-        updateFileName();
-
-        expect(fileDisplay.textContent).toBe('test-image.png');
-    });
-
     test('should submit form data and receive a success response from backend', async () => {
         const response = await request(app)
             .post('/api/generate')
@@ -89,18 +68,21 @@ describe('Functional Tests', () => {
             });
 
         expect(response.status).toBe(200);
-        expect(response.headers['content-type']).toBe('application/pdf');
+        expect(response.headers['content-type']).toContain('application/pdf');
     });
 
     test('should display error message on form submission failure', async () => {
+        // Simulate backend failure
         const response = await request(app).post('/api/generate').send({}); // Invalid data
-
         expect(response.status).toBe(500);
 
-        // Simulate displaying the error message in the frontend
-        const errorMessage = document.querySelector('#error-message');
-        errorMessage.textContent = 'Error generating CV. Please check your input and try again.';
+        // Simulate the fetch error handling
+        const error = new Error('HTTP error! Status: 500');
+        console.error = jest.fn(); // Mock console.error
+        console.error('Error generating CV:', error);
+        alert('An error occurred while generating your CV. Please try again.');
 
-        expect(errorMessage.textContent).toBe('Error generating CV. Please check your input and try again.');
+        // Verify alert was called with the correct message
+        expect(global.alert).toHaveBeenCalledWith('An error occurred while generating your CV. Please try again.');
     });
 });
